@@ -1,0 +1,10 @@
+@import url('https://fonts.googleapis.com/css2?family=Lobster&display=swap');
+
+.sidebar {
+    background-color: #F2A5EA;
+    height: 100vh;
+    width: 18%;
+}
+.logotype {
+    font-family: 'Lobster', cursive;
+}
