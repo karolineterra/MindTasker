@@ -25,6 +25,8 @@ function Sidebar() {
                 <ul>
                     <li><a href="" className="selectedSpace">space name</a></li>
                     <li><a href="">space name</a></li>
+                    <li><a href="">space name</a></li>
+                    <li><a href="">space name</a></li>
                 </ul>
                 <button className="addSpaceButton"><img src={addSpaceImage}></img>Add space</button>
             </div>

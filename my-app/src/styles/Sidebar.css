@@ -9,6 +9,17 @@
     width: 18%;
 }
 
+/*   BOTÃO DE SAIR    */
+.closeIcon {
+    align-self: flex-end;
+    margin-right: 0.75rem;
+    background: none;
+    border: none;
+    cursor:pointer;
+}
+
+/*     LOGOTIPO       */
+
 .logotype {
     font-size: 2rem;
     margin-top: 4%;
@@ -27,13 +38,6 @@
 }
 .userImage {
     width: 50%;
-}
-
-.closeIcon {
-    align-self: flex-end;
-    margin-right: 0.75rem;
-    background: none;
-    border: none;
 }
 
 .userName {
@@ -66,13 +70,19 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 1rem;
+    gap: 1.5rem;
     
 }
 .userSpaces ul a {
     text-decoration: none;
     color: #000;
     font-size: 1.25rem; 
+}
+
+.userSpaces ul a:hover {
+    background-color: #858484;
+    border-radius: 50px;
+    padding: 10px 38px;
 }
 
 .userSpaces .selectedSpace {
@@ -99,11 +109,12 @@
 .logoutButton {
     border: none;
     padding: 6px;
-    display: inline-flex;
+    display: flex;
     align-items: center;
     justify-content: center;
     gap: 10px;
     border-radius: 4px;
-    margin-top: 75%;
     font-size: 0.875rem;
+    margin-top: auto;
+    margin-bottom: 5%;
 }
