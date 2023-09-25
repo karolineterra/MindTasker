@@ -36,7 +36,7 @@ function Sidebar() {
             <footer>
                 <a href=""><img src={informationIcon}></img></a>
 
-                <button className="logoutButton"><img src={logoutImage}></img>Log out</button>
+                <a href="/login" className="logoutButton"><img src={logoutImage}></img>Log out</a>
             </footer>
             
 
