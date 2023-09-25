@@ -3,24 +3,35 @@ import userImage from '../assets/user-default.png';
 import addSpaceImage from '../assets/add.png';
 import logoutImage from '../assets/logout.png';
 import '../styles/Sidebar.css';
+
+import closeIcon from '../assets/closeIcon.png';
+import editIcon from '../assets/editIcon.png';
 function Sidebar() {
     return (
-        <div className="sidebar">
+        <nav className="sidebar">
+            <button className="closeIcon"><img src={closeIcon}></img></button>
+            
             <h1 className="logotype">MindTasker</h1>
-            <img src={userImage}></img>
+            
+            <div className="userInformation">
+                <img src={userImage} className="userImage"></img>
+                <h3 className="userName">username</h3>
+                <a className="editProfile" href="#">Editar perfil <img src={editIcon}></img></a>
+                
+            </div>
             
             <div className="userSpaces">
                 <h2>My spaces</h2>
                 <ul>
-                    <li className="selectedSpace"><a>space name</a></li>
-                    <li><a>space name</a></li>
+                    <li><a href="" className="selectedSpace">space name</a></li>
+                    <li><a href="">space name</a></li>
                 </ul>
                 <button className="addSpaceButton"><img src={addSpaceImage}></img>Add space</button>
             </div>
 
             <button className="logoutButton"><img src={logoutImage}></img>Log out</button>
 
-        </div>
+        </nav>
     );
 }
 
