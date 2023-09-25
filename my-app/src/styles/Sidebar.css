@@ -127,6 +127,9 @@
     cursor: pointer;
     background-color: #fff;
 }
+.logoutButton:hover {
+    background-color: #dad8d8;
+}
 footer {
     display: flex;
     align-items: center;
