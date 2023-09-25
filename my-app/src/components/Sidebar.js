@@ -6,6 +6,8 @@ import '../styles/Sidebar.css';
 
 import closeIcon from '../assets/closeIcon.png';
 import editIcon from '../assets/editIcon.png';
+import informationIcon from '../assets/infoCircle.png';
+
 function Sidebar() {
     return (
         <nav className="sidebar">
@@ -31,7 +33,12 @@ function Sidebar() {
                 <button className="addSpaceButton"><img src={addSpaceImage}></img>Add space</button>
             </div>
 
-            <button className="logoutButton"><img src={logoutImage}></img>Log out</button>
+            <footer>
+                <a href=""><img src={informationIcon}></img></a>
+
+                <button className="logoutButton"><img src={logoutImage}></img>Log out</button>
+            </footer>
+            
 
         </nav>
     );
