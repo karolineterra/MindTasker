@@ -1,0 +1,49 @@
+@import url('https://fonts.googleapis.com/css2?family=Lobster&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@200&family=Poppins&display=swap');
+:root {
+    --maincolor: #AA90D4;
+  }
+  
+  /* Use a variável CSS em seu seletor */
+  .besideForm {
+    width: 40vw;
+    height: 100%;
+    background-color: var(--maincolor);
+    text-align: center;
+    padding-left: 2%;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    align-content: center;
+    align-items: center;
+    overflow: hidden;
+  }
+  .logotype {
+    font-size: 2rem;
+    font-family: 'Lobster', cursive;
+    font-weight: 400;
+    text-align: left;
+    margin-bottom: 3rem;
+    width: 100%;
+}
+h2{
+    font-family: 'Montserrat', sans-serif;
+    font-family: 'Poppins', sans-serif;
+    font-size: 2.355rem;
+    margin: 2% 0;
+    width: 70%;
+    text-align: left;
+}
+p{
+    font-family: 'Montserrat', sans-serif;
+    font-family: 'Poppins', sans-serif;
+    font-size: 1.05rem;
+    opacity: 0.8;
+    margin: 3% 0;
+    width: 70%;
+    text-align: justify;
+}
+img{
+    margin-top: 2rem;
+    width: 63%;
+}
