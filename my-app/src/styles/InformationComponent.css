@@ -1,0 +1,15 @@
+.informationContainer {
+    margin: 36px;
+}
+
+.informationLabel {
+    font-size: 1.125rem;
+    font-weight: 500;
+}
+
+.informationAnswer {
+    font-size: 1.125rem;
+    font-weight: 400;
+    color: #696969;
+
+}

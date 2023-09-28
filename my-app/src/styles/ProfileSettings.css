@@ -1,0 +1,11 @@
+.profileSettingsContainer {
+    display: flex;
+    align-items: center;
+    margin: 0 auto;
+}
+
+.informationPanel {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}

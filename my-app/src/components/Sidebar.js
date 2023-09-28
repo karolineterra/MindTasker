@@ -18,14 +18,14 @@ function Sidebar() {
             <div className="userInformation">
                 <img src={userImage} className="userImage"></img>
                 <h3 className="userName">username</h3>
-                <a className="editProfile" href="#">Editar perfil <img src={editIcon}></img></a>
+                <a className="editProfile" href="/settings">Edit profile <img src={editIcon}></img></a>
                 
             </div>
             
             <div className="userSpaces">
                 <h2>My spaces</h2>
                 <ul>
-                    <li><a href="" className="selectedSpace">space name</a></li>
+                    <li><a href="/homepage" className="selectedSpace">space name</a></li>
                     <li><a href="">space name</a></li>
                     <li><a href="">space name</a></li>
                     <li><a href="">space name</a></li>

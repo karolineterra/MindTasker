@@ -4,6 +4,7 @@ import './styles/App.css';
 import HomePage from './containers/HomePage.js';
 import Login from './containers/Login';
 import CreateAccount from './containers/CreateAccount';
+import ProfileSettings from './containers/ProfileSettings';
 
 function App() {
   return (
@@ -13,6 +14,7 @@ function App() {
         <Route path='/homepage' element={<HomePage/>}/>
         <Route path='/login' element={<Login/>}/>
         <Route path='/createaccount' element={<CreateAccount/>}/>
+        <Route path='/settings' element={<ProfileSettings/>}/>
       </Routes>
     </Router>  
   );
