@@ -13,7 +13,7 @@ function Login() {
                 <label for="password">Passwordl</label>
                 <input name="password" type="password" placeholder="Enter your password"></input>
                 <a href="#">I forgot my password</a>
-                <input type="submit">Log in</input>
+                <input type="submit" value="Confirm"/>
                 <a href="#">Don't have an account? Click here!</a>
             </form>
         </div>

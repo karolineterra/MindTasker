@@ -16,7 +16,7 @@ function CreateAccount() {
                 <input name="password" type="password" placeholder="Enter your password"></input>
                 <label for="birth">Birth</label>
                 <input name="birth" type="date"></input>
-                <input type="submit">Confirm</input>
+                <input type="submit" value="Confirm"/>
                 <a href="#">Already have an account? Click here!</a>
             </form>
         </div>
