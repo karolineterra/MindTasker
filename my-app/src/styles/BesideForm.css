@@ -31,7 +31,7 @@
     font-family: 'Poppins', sans-serif;
     font-size: 2.355rem;
     margin: 2% 0;
-    width: 70%;
+    max-width: 70%;
     text-align: left;
 }
 .besideForm p{
@@ -40,10 +40,32 @@
     font-size: 1.05rem;
     opacity: 0.8;
     margin: 3% 0;
-    width: 70%;
+    max-width: 70%;
     text-align: justify;
 }
 .besideForm img{
     margin-top: 2rem;
     width: 63%;
 }
+
+@media screen and (max-height: 679px) {
+    /* estilos para monitores com altura menor que 680px aqui */
+    .logotypeBesideForm {
+        margin-bottom: 1.5rem;
+    }
+    .besideForm {
+        padding: 2%;
+    }
+    .besideForm h2 {
+        max-width: 524px;
+        font-size: 2rem;
+    }
+    .besideForm p {
+        max-width: 524px;
+        font-size: 1rem;
+    }
+    .besideForm img {
+        max-width: 50%;
+    }
+  }
+  
