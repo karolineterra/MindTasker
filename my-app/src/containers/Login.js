@@ -8,13 +8,19 @@ function Login() {
             <BesideForm/>
             <form>
                 <h1>Login</h1>
-                <label for="email">E-mail</label>
+                <span class="inputSpan">
+                    <label for="email">E-mail</label>
                 <input name="email" type="email" placeholder="Enter your email"></input>
-                <label for="password">Passwordl</label>
-                <input name="password" type="password" placeholder="Enter your password"></input>
-                <a href="#">I forgot my password</a>
-                <input type="submit" value="Confirm"/>
+                </span>
+                <span class="inputSpan">
+                    <label for="password">Password</label>
+                    <input name="password" type="password" placeholder="Enter your password"></input>
+                    <a href="#">I forgot my password</a>
+                </span>
+                <span class="submitSpan">
+                    <input type="submit" value="Log In"/>
                 <a href="#">Don't have an account? Click here!</a>
+                </span>
             </form>
         </div>
     );
