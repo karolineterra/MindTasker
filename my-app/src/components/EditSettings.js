@@ -1,10 +1,9 @@
 import React, { useState } from "react";
 import userImage from "../assets/userImage.png"
-import InformationComponent from "../components/InformationComponent";
 
 import '../styles/Settings.css';
 
-function Settings() {
+function EditSettings() {
     const [image, setImage] = useState(userImage);
     const fileInputRef = React.createRef();
 
@@ -25,12 +24,6 @@ function Settings() {
                     backgroundImage: `url(${image})`,
                     backgroundRepeat: 'no-repeat',
                     backgroundSize: 'cover'}} class="profilePictureContainer"></div>
-                <div>
-                    <InformationComponent label="Name" value="username" />
-                    <InformationComponent label="Email" value="email@gmail.com" />
-                    <InformationComponent label="Age" value="20 years" />
-                    <InformationComponent label="Gender" value="Male" />
-                </div>
             </div>
             <div className="buttonsContainer">
                 <button className="editPictureSettings" onClick={triggerFileInput}>Edit Picture</button>
@@ -41,5 +34,5 @@ function Settings() {
     );
 }
 
-export default Settings;
+export default EditSettings;
 

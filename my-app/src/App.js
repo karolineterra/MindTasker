@@ -5,6 +5,7 @@ import HomePage from './containers/HomePage.js';
 import Login from './containers/Login';
 import CreateAccount from './containers/CreateAccount';
 import ProfileSettings from './containers/ProfileSettings';
+import ProfileSettingsEdit from './containers/ProfileSettingsEdit';
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
         <Route path='/login' element={<Login/>}/>
         <Route path='/createaccount' element={<CreateAccount/>}/>
         <Route path='/settings' element={<ProfileSettings/>}/>
+        <Route path='/editsettings' element={<ProfileSettingsEdit/>}/>
       </Routes>
     </Router>  
   );
