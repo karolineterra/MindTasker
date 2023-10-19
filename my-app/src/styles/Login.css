@@ -1,7 +1,3 @@
-:root {
-    --maincolor: #AA90D4;
-  }
-  
 .LoginBody{
     display: flex;
     flex-direction: row;

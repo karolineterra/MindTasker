@@ -1,11 +1,8 @@
 @import url('https://fonts.googleapis.com/css2?family=Lobster&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@200&family=Poppins&display=swap');
-:root {
-    --maincolor: #AA90D4;
-  }
-  
-  /* Use a variável CSS em seu seletor */
-  .besideForm {
+
+
+.besideForm {
     width: 45vw;
     height: 100%;
     background-color: var(--maincolor);

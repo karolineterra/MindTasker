@@ -3,5 +3,5 @@
     width: 90%;
     height: 80%;
     border-radius: 20px;
-    background-color: #AA90D4;
+    background-color: var(--maincolor);
 }
