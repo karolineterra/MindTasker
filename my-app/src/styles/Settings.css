@@ -25,7 +25,7 @@
     font-weight: 700;
     padding: 18px 26px;
     border-radius: 20px;
-    border: 3px solid #575757;
+    border: 3px solid var(--maincolor);
 }
 
 .editProfileSettings {
@@ -37,7 +37,7 @@
     font-weight: 700;
     padding: 18px 26px;
     border-radius: 20px;
-    border: 3px solid #575757;
+    border: 3px solid var(--maincolor);
 }
 .buttonsContainer {
     display: flex;
