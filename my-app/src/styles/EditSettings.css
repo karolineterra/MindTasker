@@ -1,8 +1,13 @@
 .profileInformationEditSettings {
     max-width: 70%;
-    margin: 0 auto;
+    margin: auto;
     display: flex;
     flex-direction: column;
+}
+
+.profileInformationEditSettings h1 {
+    align-self: center;
+    margin-bottom: 1rem;
 }
 
 .profileInformationEditSettingsRow {
