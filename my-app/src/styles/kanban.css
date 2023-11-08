@@ -1,0 +1,16 @@
+.kanbanContainer {
+    display: flex;
+    justify-content: space-around;
+    padding:20px;
+}
+
+.kanbanBoard h1 {
+    font-size: 1.25rem;
+    font-weight: bold;
+    max-height: 420px;
+}
+.kanbanBoardContainer {
+    background-color: #fff;
+    ;
+    width: 100%;
+}
