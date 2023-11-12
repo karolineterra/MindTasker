@@ -4,7 +4,8 @@ import addImage from "../assets/add.png";
 
 function TodoList() {
   const [tasks, setTasks] = useState([]);
-  const [newTask, setNewTask] = useState("Adicione uma tarefa");
+  const [newTask, setNewTask] = useState("Enter task name");
+  const [isInputVisible, setIsInputVisible] = useState(false);
 
   const addTask = () => {
     if (newTask.trim() !== "") {
@@ -23,21 +24,34 @@ function TodoList() {
     setTasks(updatedTasks);
   };
 
+  const handleKeyPress = (e) => {
+    if (e.key === "Enter") {
+      addTask();
+      setIsInputVisible(false);
+    }
+  };
+
   return (
     <div className="todo-container">
-      <h1>To-do List</h1>
       <div className="add-task-container">
-        <input
-          type="text"
-          placeholder="Enter task..."
-          value={newTask}
-          onChange={(e) => setNewTask(e.target.value)}
-        />
-        <button onClick={addTask}>
-          <img src={addImage} />
+        <h1>To-do List</h1>
+        <button onClick={() => setIsInputVisible(true)}>
+          <img src={addImage} alt="Add task" />
         </button>
       </div>
       <div className="task-list">
+        {isInputVisible && (
+          <div className={`task input-task`}>
+            <input
+              type="text"
+              placeholder="Enter task..."
+              value={newTask}
+              onChange={(e) => setNewTask(e.target.value)}
+              onKeyPress={handleKeyPress}
+            />
+          </div>
+        )}
+
         {tasks.map((task) => (
           <div
             key={task.id}

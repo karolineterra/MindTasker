@@ -8,9 +8,24 @@
     align-self: center;
 }
 
-.todo-container h1 {
+
+.todo-container-row {
+    display: flex;
+    justify-content: space-between;
+
+}
+
+.input-task input[type=text]{
+    width: 100%;
+    border: none;
+}
+
+.input-task input[type=text]:not(:focus) {
+    color: rgb(177, 177, 177);
+}
+
+.todo-container h1{
     font-size: 1.25rem;
-    align-self: center;
 }
 
 .task-list {
@@ -28,7 +43,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 10px;
+    gap: 20px;
 }
 
 .add-task-container input {
@@ -44,9 +59,10 @@
 }
 
 .add-task-container button {
-    border-radius: 4px;
-    border: none;
-    padding: 4px;
+    cursor: pointer;
+    border-radius: 5px;
+    border: 2px solid #000;
+    padding: 2px 4px;
 }
   
 .task {
