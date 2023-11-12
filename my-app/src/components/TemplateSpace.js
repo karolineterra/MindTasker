@@ -10,6 +10,8 @@ function TemplateSpace(){
         <div className="templatesContainer">
             <TemplateBlock Component={KanbanBoard}/>
             <TemplateBlock Component={Pomodoro}/>
+            <TemplateBlock Component={KanbanBoard}/>
+            <TemplateBlock Component={Note}/>
         </div>
         
     )

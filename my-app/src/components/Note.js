@@ -16,7 +16,12 @@ function Note() {
   return (
     <div className="noteContainer">
         <div className="noteHeader">
-            <h3 className='noteTitle'>Note Title</h3>
+            <h3 className='noteTitle'>
+                {isEdit ? (<textarea value={note.title} onChange={ (event) => {
+                const newTitle = event.target.value;
+                const updatedNote = { ...note, title: newTitle };
+                setNote(updatedNote);
+            }}/>) : (note.title )}</h3>
             <button onClick={toggleEdit}>{isEdit ? 'Save' : <img src={editIcon} alt="Edit Icon" />}</button>
         </div>
         <div className={`noteText ${isEdit ? 'editMode' : ''}`}>
