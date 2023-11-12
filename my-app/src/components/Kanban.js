@@ -114,7 +114,6 @@ function KanbanBoard() {
 
   return (
     <div className="kanbanContainer">
-      {/* ToDo */}
       <div className="kanbanBoard">
         <h1>To-Do</h1>
         <div className="kanbanBoardContainer">
@@ -165,7 +164,6 @@ function KanbanBoard() {
         </div>
       </div>
 
-      {/* In Progress */}
       <div className="kanbanBoard">
         <h1>In Progress</h1>
         <div className="kanbanBoardContainer">
@@ -223,7 +221,6 @@ function KanbanBoard() {
         </div>
       </div>
 
-      {/* Done */}
       <div className="kanbanBoard">
         <h1>Done</h1>
         <div className="kanbanBoardContainer">
@@ -275,7 +272,6 @@ function KanbanBoard() {
         </div>
       </div>
 
-      {/* Modal for adding tasks */}
       {showModal && (
         <div className="kanbanModal">
           <div className="kanbanModalContent">

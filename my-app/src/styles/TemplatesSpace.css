@@ -1,9 +1,11 @@
 .templatesContainer {
     width: 100%; 
+    max-height: 100vh;
     margin: 0 auto;
     display: grid;
     grid-template-columns: 2fr 1fr;
     grid-template-rows: 1fr 1fr;
     align-items: center;
-    overflow-y: hidden;
+    justify-items: center;
+    align-content: center;
 }
