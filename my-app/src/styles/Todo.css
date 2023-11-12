@@ -61,7 +61,7 @@
 .add-task-container button {
     cursor: pointer;
     border-radius: 5px;
-    border: 2px solid #000;
+    border: 1px solid grey;
     padding: 2px 4px;
 }
   
