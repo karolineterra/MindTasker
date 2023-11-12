@@ -1,16 +1,16 @@
 .kanbanContainer {
     display: flex;
     justify-content: space-between;
-    padding:20px;
-    width: 90%;
-    height: 100%;
+    align-self: center;
+    justify-self: center;
+    width: 80%;
+    height: 90%;
 }
 
 .kanbanBoard {
     display: flex;
     flex-direction: column;
-    align-items: center;
-    
+    align-items: center; 
 }
 
 .kanbanBoard h1 {
@@ -20,16 +20,27 @@
 }
 .kanbanBoardContainer {
     background-color: #fff;
-    ;
     width: 170px;
     margin-top: 8px;
     border-radius: 10px;
-    height: 75%;
+    height: 80%;
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 10px;
+    overflow-y: auto;
 }
+
+.kanbanBoardContainer::-webkit-scrollbar {
+    width: 12px; /* Largura da barra de rolagem */
+    background-color: rgb(255, 255, 255);
+    border-radius: 5px;
+}
+
+.kanbanBoardContainer::-webkit-scrollbar-thumb {
+    background-color: #b1b0b0; /* Cor do "ponteiro" da barra de rolagem */
+    border-radius: 5px; /* Borda arredondada do "ponteiro" */
+}
+
 
 .kanbanAddTask {
     display: flex;
@@ -41,7 +52,7 @@
     font-family: Montserrat;
     font-size: 10px;
     border-radius: 5px;
-    margin-top: 4px;
+    margin-top: 10px;
     cursor: pointer;
 }
 
@@ -88,8 +99,75 @@
     background-color: #d9d9d9;
     border: none;
     border-radius: 5px;
+    cursor: pointer;
 }
 
 .kanbanClose {
     align-self: flex-end;
+    cursor: pointer;
+}
+
+/* EDIÇÃO DOS CARDS */
+
+.kanbanTask {
+    margin-top: 10px;
+    border-radius: 5px;
+    color: #000;
+    text-align: center;
+    font-family: Montserrat;
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+    padding: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    max-width: 135px;
+}
+.kanbanTask p {
+    white-space: nowrap;
+    max-width: 108px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.kanbanTaskButtons {
+    display: flex;
+    gap: 2px;
+    width: 20%;
+    height: auto;
+}
+.kanbanTaskButtons button {
+    background: none;
+    border: none;
+    cursor: pointer;
+}
+.kanbanTaskButtons button img{
+    width: 100%;
+}
+
+/* EDITANDOT TASKS */
+
+.editable-task {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+.editable-task input {
+    max-width: 108px;
+    border-radius: 5px;
+    border: none;
+    padding: 4px;
+}
+
+.editable-task button {
+    width: 50%;
+    padding: 8px;
+    align-self: center;
+    border: none;
+    border-radius: 5px;
+    color: rgba(0, 0, 0, 0.54);
+    cursor: pointer;
+    
 }

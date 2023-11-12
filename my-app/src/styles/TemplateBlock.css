@@ -4,4 +4,7 @@
     height: 80%;
     border-radius: 20px;
     background-color: var(--maincolor);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 }

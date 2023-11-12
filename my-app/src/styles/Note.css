@@ -1,27 +1,24 @@
 .noteContainer{
     display: flex;
     flex-direction: column;
-    justify-content: space-evenly;
-    height: 100%;
+    justify-content: space-between;
+    height: 80%;
     align-content: center;
     align-items: center;
+    padding: 2rem;
     border: 2px dashed black;
     border-radius: 20px;
-    background-color: var(--maincolor);
-    padding: 0 2rem;
 }
 .noteText{
     overflow-y: auto;
     height: 75%;
     width: 100%;
-    resize: none;
-    border: none;
 }
 .editMode textarea {
     background-color: transparent;
     border: none;
     overflow-y: auto;
-    height: 75%;
+    height: 100%;
     width: 100%;
     resize: none;
 }
@@ -43,7 +40,4 @@
 .noteHeader button{
     background-color: transparent;
     border: none;
-}
-.noteTitle textarea{
-    all: unset;
 }

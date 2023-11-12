@@ -1,35 +1,39 @@
 import React, { useState } from "react";
 import "../styles/kanban.css";
 import addImage from "../assets/icon-add-grey.png";
+import deleteImage from "../assets/excluir.png";
+import editImage from "../assets/editar.png";
 
 function KanbanBoard() {
+  const customColors = ["#E1F65A", "#F65A5A", "#ACD2F5", "#EBACF5", "#ACF5BC"];
+
   const [toDoTasks, setToDoTasks] = useState([]);
   const [inProgressTasks, setInProgressTasks] = useState([]);
   const [doneTasks, setDoneTasks] = useState([]);
   const [showModal, setShowModal] = useState(false);
   const [taskTitle, setTaskTitle] = useState("");
   const [selectedColumn, setSelectedColumn] = useState("");
+  const [editingTask, setEditingTask] = useState(null);
+  const [editingTitleInProgress, setEditingTitleInProgress] = useState("");
+  const [editingTitleDone, setEditingTitleDone] = useState("");
 
   const addTask = () => {
     if (taskTitle.trim() !== "") {
+      const newTask = {
+        id: toDoTasks.length + 1,
+        title: taskTitle,
+        color: customColors[Math.floor(Math.random() * customColors.length)],
+      };
+
       switch (selectedColumn) {
         case "todo":
-          setToDoTasks([
-            ...toDoTasks,
-            { id: toDoTasks.length + 1, title: taskTitle },
-          ]);
+          setToDoTasks([...toDoTasks, newTask]);
           break;
         case "inProgress":
-          setInProgressTasks([
-            ...inProgressTasks,
-            { id: inProgressTasks.length + 1, title: taskTitle },
-          ]);
+          setInProgressTasks([...inProgressTasks, newTask]);
           break;
         case "done":
-          setDoneTasks([
-            ...doneTasks,
-            { id: doneTasks.length + 1, title: taskTitle },
-          ]);
+          setDoneTasks([...doneTasks, newTask]);
           break;
         default:
           break;
@@ -60,7 +64,25 @@ function KanbanBoard() {
     }
   };
 
-  const editTask = (taskId, newTitle, column) => {
+  const startEditTask = (taskId, column) => {
+    setEditingTask(taskId);
+    switch (column) {
+      case "inProgress":
+        setEditingTitleInProgress(
+          inProgressTasks.find((task) => task.id === taskId)?.title || ""
+        );
+        break;
+      case "done":
+        setEditingTitleDone(
+          doneTasks.find((task) => task.id === taskId)?.title || ""
+        );
+        break;
+      default:
+        break;
+    }
+  };
+
+  const saveEditedTask = (taskId, newTitle, column) => {
     let updatedTasks = [];
     switch (column) {
       case "todo":
@@ -84,13 +106,53 @@ function KanbanBoard() {
       default:
         break;
     }
+
+    setEditingTask(null);
+    setEditingTitleInProgress("");
+    setEditingTitleDone("");
   };
 
   return (
     <div className="kanbanContainer">
+      {/* ToDo */}
       <div className="kanbanBoard">
         <h1>To-Do</h1>
         <div className="kanbanBoardContainer">
+          
+          {toDoTasks.map((task) => (
+            <div
+              key={task.id}
+              className="kanbanTask"
+              style={{ backgroundColor: task.color }}
+            >
+              {editingTask === task.id ? (
+                <div className="editable-task">
+                  <input
+                    type="text"
+                    value={taskTitle}
+                    onChange={(e) => setTaskTitle(e.target.value)}
+                  />
+                  <button
+                    onClick={() => saveEditedTask(task.id, taskTitle, "todo")}
+                  >
+                    Save
+                  </button>
+                </div>
+              ) : (
+                <>
+                  <p>{task.title}</p>
+                  <div className="kanbanTaskButtons">
+                    <button onClick={() => deleteTask(task.id, "todo")}>
+                      <img src={deleteImage} alt="Delete Icon" />
+                    </button>
+                    <button onClick={() => startEditTask(task.id, "todo")}>
+                      <img src={editImage} alt="Edit Icon" />
+                    </button>
+                  </div>
+                </>
+              )}
+            </div>
+          ))}
           <button
             className="kanbanAddTask"
             onClick={() => {
@@ -100,24 +162,6 @@ function KanbanBoard() {
           >
             Add Task <img src={addImage} alt="Add Icon" />
           </button>
-          {toDoTasks.map((task) => (
-            <div key={task.id} className="kanbanTask">
-              <p>{task.title}</p>
-              <button onClick={() => deleteTask(task.id, "todo")}>
-                Delete
-              </button>
-              <button
-                onClick={() => {
-                  const newTitle = prompt("Enter new title: ", task.title);
-                  if (newTitle !== null) {
-                    editTask(task.id, newTitle, "todo");
-                  }
-                }}
-              >
-                Edit
-              </button>
-            </div>
-          ))}
         </div>
       </div>
 
@@ -135,21 +179,45 @@ function KanbanBoard() {
             Add Task <img src={addImage} alt="Add Icon" />
           </button>
           {inProgressTasks.map((task) => (
-            <div key={task.id} className="kanbanTask">
-              <p>{task.title}</p>
-              <button onClick={() => deleteTask(task.id, "inProgress")}>
-                Delete
-              </button>
-              <button
-                onClick={() => {
-                  const newTitle = prompt("Enter new title: ", task.title);
-                  if (newTitle !== null) {
-                    editTask(task.id, newTitle, "inProgress");
-                  }
-                }}
-              >
-                Edit
-              </button>
+            <div
+              key={task.id}
+              className="kanbanTask"
+              style={{ backgroundColor: task.color }}
+            >
+              {editingTask === task.id ? (
+                <div className="editable-task">
+                  <input
+                    type="text"
+                    value={editingTitleInProgress}
+                    onChange={(e) => setEditingTitleInProgress(e.target.value)}
+                  />
+                  <button
+                    onClick={() =>
+                      saveEditedTask(
+                        task.id,
+                        editingTitleInProgress,
+                        "inProgress"
+                      )
+                    }
+                  >
+                    Save
+                  </button>
+                </div>
+              ) : (
+                <>
+                  <p>{task.title}</p>
+                  <div className="kanbanTaskButtons">
+                    <button onClick={() => deleteTask(task.id, "inProgress")}>
+                      <img src={deleteImage} alt="Delete Icon" />
+                    </button>
+                    <button
+                      onClick={() => startEditTask(task.id, "inProgress")}
+                    >
+                      <img src={editImage} alt="Edit Icon" />
+                    </button>
+                  </div>
+                </>
+              )}
             </div>
           ))}
         </div>
@@ -169,21 +237,39 @@ function KanbanBoard() {
             Add Task <img src={addImage} alt="Add Icon" />
           </button>
           {doneTasks.map((task) => (
-            <div key={task.id} className="kanbanTask">
-              <p>{task.title}</p>
-              <button onClick={() => deleteTask(task.id, "done")}>
-                Delete
-              </button>
-              <button
-                onClick={() => {
-                  const newTitle = prompt("Enter new title: ", task.title);
-                  if (newTitle !== null) {
-                    editTask(task.id, newTitle, "done");
-                  }
-                }}
-              >
-                Edit
-              </button>
+            <div
+              key={task.id}
+              className="kanbanTask"
+              style={{ backgroundColor: task.color }}
+            >
+              {editingTask === task.id ? (
+                <div className="editable-task">
+                  <input
+                    type="text"
+                    value={editingTitleDone}
+                    onChange={(e) => setEditingTitleDone(e.target.value)}
+                  />
+                  <button
+                    onClick={() =>
+                      saveEditedTask(task.id, editingTitleDone, "done")
+                    }
+                  >
+                    Save
+                  </button>
+                </div>
+              ) : (
+                <>
+                  <p>{task.title}</p>
+                  <div className="kanbanTaskButtons">
+                    <button onClick={() => deleteTask(task.id, "done")}>
+                      <img src={deleteImage} alt="Delete Icon" />
+                    </button>
+                    <button onClick={() => startEditTask(task.id, "done")}>
+                      <img src={editImage} alt="Edit Icon" />
+                    </button>
+                  </div>
+                </>
+              )}
             </div>
           ))}
         </div>
@@ -203,7 +289,7 @@ function KanbanBoard() {
               onChange={(e) => setTaskTitle(e.target.value)}
               placeholder="Enter task title"
             />
-            <button onClick={addTask}>Save</button>
+            <button onClick={addTask}>Add Task</button>
           </div>
         </div>
       )}
