@@ -1,9 +1,10 @@
 import React, { useState } from "react";
 import "../styles/Todo.css";
+import addImage from "../assets/add.png";
 
 function TodoList() {
   const [tasks, setTasks] = useState([]);
-  const [newTask, setNewTask] = useState("");
+  const [newTask, setNewTask] = useState("Adicione uma tarefa");
 
   const addTask = () => {
     if (newTask.trim() !== "") {
@@ -32,18 +33,23 @@ function TodoList() {
           value={newTask}
           onChange={(e) => setNewTask(e.target.value)}
         />
-        <button onClick={addTask}>Add Task</button>
+        <button onClick={addTask}>
+          <img src={addImage} />
+        </button>
       </div>
       <div className="task-list">
         {tasks.map((task) => (
-          <div key={task.id} className={`task ${task.completed ? "completed" : ""}`}>
-            <p>{task.text}</p>
+          <div
+            key={task.id}
+            className={`task ${task.completed ? "completed" : ""}`}
+          >
             <input
               type="checkbox"
               id={`task-${task.id}`}
               checked={task.completed}
               onChange={() => toggleTask(task.id)}
             />
+            <p>{task.text}</p>
           </div>
         ))}
       </div>

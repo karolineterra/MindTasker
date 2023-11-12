@@ -14,6 +14,9 @@
 }
 
 .task-list {
+    display: flex;
+    flex-direction: column;
+    /* gap: 4px; */
     margin-top: 4px;
     height: 180px;
     max-height: 200px;
@@ -23,29 +26,48 @@
 .add-task-container {
     margin-top: 10px;
     display: flex;
+    align-items: center;
+    justify-content: center;
     gap: 10px;
+}
+
+.add-task-container input {
+    border-radius: 5px;
+    border: none;
+    padding: 4px;
+}
+.add-task-container input:not(:focus) {
+    color: rgb(177, 177, 177);
+}
+.add-task-container input:focus {
+    outline: 1px solid grey;
+}
+
+.add-task-container button {
+    border-radius: 4px;
+    border: none;
+    padding: 4px;
 }
   
 .task {
     display: flex;
     align-items: center;
+    justify-items: center;
     justify-content: space-between;
     background-color: #f5f5f5;
     padding: 8px;
     margin-top: 8px;
     border-radius: 5px;
+    width: 90%;
+}
+.task input {
+    margin-right: 8px;
+    width: 16px;
+    height: 16px;
 }
   
 .task.completed {
     text-decoration: line-through;
 }
-  
-.task button {
-    background-color: #4caf50;
-    color: white;
-    border: none;
-    padding: 8px;
-    border-radius: 5px;
-    cursor: pointer;
-}
+
   
