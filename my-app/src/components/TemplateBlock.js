@@ -1,10 +1,11 @@
 import React from "react";
 import "../styles/TemplateBlock.css";
 
-const TemplateBlock = ({ Component }) => (
+const TemplateBlock = ({ Component, onTemplateSelect }) => (
   <div className="templateContainer">
-    <Component />
+    <Component onTemplateSelect={onTemplateSelect} />
   </div>
 );
+
 
 export default TemplateBlock;
