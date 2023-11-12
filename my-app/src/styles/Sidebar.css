@@ -7,16 +7,9 @@
     background-color: var(--maincolor);
     height: 100vh;
     width: 18%;
+    position: relative;
 }
 
-/*   BOTÃO DE SAIR    */
-.closeIcon {
-    align-self: flex-end;
-    margin-right: 0.75rem;
-    background: none;
-    border: none;
-    cursor:pointer;
-}
 
 /*     LOGOTIPO       */
 
@@ -139,3 +132,40 @@ footer {
     margin-bottom: 5%;
 }
 
+
+.menu-hamburguer-content {
+    position: absolute;
+    background-color: black;
+}
+button.menuIcon {
+    background: none;
+    border: none;
+}
+
+.menu-open {
+    width: 4%;
+    background-color: #fff;
+    overflow: hidden;
+}
+
+.menu-open .closeIcon img {
+    width: 28px;
+    height: 28px;
+}
+
+
+.closeIcon {
+    align-self: flex-end;
+    background: none;
+    border: none;
+    cursor:pointer;
+}
+.closeIcon button{
+    width: 20px;
+    height: 20px;
+    background: none;
+}
+.closeIcon img {
+    width: 20px;
+    height: 20px;
+}
