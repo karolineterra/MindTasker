@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
 import userImage from "../assets/user-default.png";
 import addSpaceImage from "../assets/add.png";
 import logoutImage from "../assets/logout.png";
@@ -32,27 +33,27 @@ function Sidebar() {
           <div className="userInformation">
             <img src={userImage} className="userImage"></img>
             <h3 className="userName">username</h3>
-            <a className="editProfile" href="/settings">
+            <Link className="editProfile" to="/settings">
               Edit profile <img src={editIcon}></img>
-            </a>
+            </Link>
           </div>
 
           <div className="userSpaces">
             <h2>My spaces</h2>
             <ul>
               <li>
-                <a href="/homepage" className="selectedSpace">
+                <Link to="/homepage" className="selectedSpace">
                   space name
-                </a>
+                </Link>
               </li>
               <li>
-                <a href="">space name</a>
+                <Link to="">space name</Link>
               </li>
               <li>
-                <a href="">space name</a>
+                <Link to="">space name</Link>
               </li>
               <li>
-                <a href="">space name</a>
+                <Link to="">space name</Link>
               </li>
             </ul>
             <button className="addSpaceButton">
@@ -61,13 +62,13 @@ function Sidebar() {
           </div>
 
           <footer>
-            <a href="">
+            <Link to="">
               <img src={informationIcon}></img>
-            </a>
+            </Link>
 
-            <a href="/login" className="logoutButton">
+            <Link to="/login" className="logoutButton">
               <img src={logoutImage}></img>Log out
-            </a>
+            </Link>
           </footer>
         </>
       )}
