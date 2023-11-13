@@ -117,7 +117,6 @@ function KanbanBoard() {
       <div className="kanbanBoard">
         <h1>To-Do</h1>
         <div className="kanbanBoardContainer">
-          
           {toDoTasks.map((task) => (
             <div
               key={task.id}
@@ -167,15 +166,6 @@ function KanbanBoard() {
       <div className="kanbanBoard">
         <h1>In Progress</h1>
         <div className="kanbanBoardContainer">
-          <button
-            className="kanbanAddTask"
-            onClick={() => {
-              setShowModal(true);
-              setSelectedColumn("inProgress");
-            }}
-          >
-            Add Task <img src={addImage} alt="Add Icon" />
-          </button>
           {inProgressTasks.map((task) => (
             <div
               key={task.id}
@@ -218,21 +208,21 @@ function KanbanBoard() {
               )}
             </div>
           ))}
+          <button
+            className="kanbanAddTask"
+            onClick={() => {
+              setShowModal(true);
+              setSelectedColumn("inProgress");
+            }}
+          >
+            Add Task <img src={addImage} alt="Add Icon" />
+          </button>
         </div>
       </div>
 
       <div className="kanbanBoard">
         <h1>Done</h1>
         <div className="kanbanBoardContainer">
-          <button
-            className="kanbanAddTask"
-            onClick={() => {
-              setShowModal(true);
-              setSelectedColumn("done");
-            }}
-          >
-            Add Task <img src={addImage} alt="Add Icon" />
-          </button>
           {doneTasks.map((task) => (
             <div
               key={task.id}
@@ -269,6 +259,15 @@ function KanbanBoard() {
               )}
             </div>
           ))}
+          <button
+            className="kanbanAddTask"
+            onClick={() => {
+              setShowModal(true);
+              setSelectedColumn("done");
+            }}
+          >
+            Add Task <img src={addImage} alt="Add Icon" />
+          </button>
         </div>
       </div>
 
