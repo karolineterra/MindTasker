@@ -8,6 +8,7 @@ import kanbanPreview from '../assets/kanbanPreview.png';
 import notePreview from '../assets/notePreview.png';
 import pomPreview from '../assets/pomPreview.png';
 import todoPreview from '../assets/todoPreview.png';
+import iconAddTemplate from '../assets/iconAddTemplate.png';
 
 function EmptyBlock({ onTemplateSelect }) {
     const [showModal, setShowModal] = useState(false);
@@ -17,10 +18,10 @@ function EmptyBlock({ onTemplateSelect }) {
       };
   return (
     <div className="emptyBlock">
-        <div><h3>Add a template here</h3></div>
+        <div><h1>Add a template here</h1></div>
         <div><button id="addT" onClick={() => {
               setShowModal(true);
-            }}>+</button></div>
+            }}><img src={iconAddTemplate}></img></button></div>
         {showModal && (
         <div className="addTemplateModal" onClick={() => {
             setShowModal(false);

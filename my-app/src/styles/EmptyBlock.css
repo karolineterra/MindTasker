@@ -8,11 +8,15 @@
     padding: 0 2rem;
 }
 #addT{
-    background-color: white;
+    background-color: transparent;
     border: none;
     padding: 0.625rem;
     border-radius: 5px;
     font-weight: 600;
+}
+#addT img{
+    width: 15%;
+    cursor: pointer;
 }
 
 .addTemplateModal {
