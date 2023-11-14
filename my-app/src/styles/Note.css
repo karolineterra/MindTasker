@@ -13,11 +13,13 @@
     overflow-y: auto;
     height: 75%;
     width: 100%;
+    overflow-x: hidden;
 }
 .editMode textarea {
+    all: unset;
     background-color: transparent;
-    border: none;
     overflow-y: auto;
+    overflow-x: hidden;
     height: 100%;
     width: 100%;
     resize: none;
@@ -25,6 +27,7 @@
 
 .editMode .noteText {
     overflow-y: hidden;
+    overflow-x: hidden;
 }
 .noteHeader{
     display: flex;
