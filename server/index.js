@@ -1,4 +1,5 @@
 const express = require("express");
+const cors = require("cors");
 const bodyParser = require("body-parser");
 const mysql = require("mysql");
 const jwt = require("jsonwebtoken");
@@ -7,22 +8,23 @@ const app = express();
 const PORT = process.env.PORT || 3001;
 const SECRET_KEY = "admin123root321";
 
+app.use(cors({ origin: "http://localhost:3000" }));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
 const connection = mysql.createConnection({
-  host: 'localhost',
-  user: 'root',
-  password: 'ghssh64.g',
-  database: 'mindtasker',
+  host: "localhost",
+  user: "root",
+  password: "MindtaskerAdmin1234",
+  database: "mindtasker",
   port: 3306,
 });
 
 connection.connect((err) => {
   if (err) {
-    console.error('Error connecting to the database:', err);
+    console.error("Error connecting to the database:", err);
   } else {
-    console.log('Database connection successful!');
+    console.log("Database connection successful!");
   }
 });
 
@@ -34,15 +36,19 @@ app.post("/api/createAccount", (req, res) => {
     VALUES (?, ?, ?, ?, ?, ?)
   `;
 
-  connection.query(sql, [name, email, password, birth, gender, '#AA90D4'], (err, result) => {
-    if (err) {
-      console.error('Error creating account:', err);
-      res.status(500).json({ error: 'Error creating account' });
-    } else {
-      console.log('Account created successfully!');
-      res.json({ message: 'Account created successfully!' });
+  connection.query(
+    sql,
+    [name, email, password, birth, gender, "#AA90D4"],
+    (err, result) => {
+      if (err) {
+        console.error("Error creating account:", err);
+        res.status(500).json({ error: "Error creating account" });
+      } else {
+        console.log("Account created successfully!");
+        res.json({ message: "Account created successfully!" });
+      }
     }
-  });
+  );
 });
 
 app.post("/api/login", (req, res) => {
@@ -55,16 +61,16 @@ app.post("/api/login", (req, res) => {
 
   connection.query(sql, [email, password], (err, results) => {
     if (err) {
-      console.error('Error during login:', err);
-      res.status(500).json({ error: 'Error during login' });
+      console.error("Error during login:", err);
+      res.status(500).json({ error: "Error during login" });
     } else {
       if (results.length > 0) {
         const userId = results[0].id;
-        const token = jwt.sign({ userId }, SECRET_KEY, { expiresIn: '1h' });
+        const token = jwt.sign({ userId }, SECRET_KEY, { expiresIn: "1h" });
 
-        res.json({ message: 'Login successful', token }); 
+        res.json({ message: "Login successful", token });
       } else {
-        res.status(401).json({ error: 'Invalid credentials' });
+        res.status(401).json({ error: "Invalid credentials" });
       }
     }
   });
@@ -108,6 +114,67 @@ app.get("/api/user", (req, res) => {
   });
 });
 
+/*Criando nova rota para obter workspaces do usuario*/
+app.get("/api/workspaces", (req, res) => {
+  const token = req.headers.authorization.split(" ")[1];
+
+  jwt.verify(token, SECRET_KEY, (err, decoded) => {
+    if (err) {
+      console.error("Error decoding token:", err);
+      res.status(401).json({ error: "Invalid token" });
+    } else {
+      const userId = decoded.userId;
+
+      const sql = `
+        SELECT id, nome FROM workspace
+        WHERE usuario_id = ?
+      `;
+
+      connection.query(sql, [userId], (err, results) => {
+        if (err) {
+          console.error("Error fetching user workspaces:", err);
+          res.status(500).json({ error: "Error fetching user workspaces" });
+        } else {
+          res.json(results);
+        }
+      });
+    }
+  });
+});
+
+/*Criando rota para adicionar novo workspace*/
+
+app.post("/api/addWorkspace", (req, res) => {
+  const { nome } = req.body;
+  const token = req.headers.authorization.split(" ")[1];
+
+  console.log("Token recebido: ", token);
+
+  jwt.verify(token, SECRET_KEY, (err, decoded) => {
+    if (err) {
+      console.error("Error decoding token:", err);
+      res.status(401).json({ error: "Invalid token" });
+    } else {
+      const userId = decoded.userId;
+      console.log("userId extraído do token", userId);
+
+      const sql = `
+        INSERT INTO workspace (nome, usuario_id)
+        VALUES (?, ?)
+      `;
+
+      connection.query(sql, [nome, userId], (err, result) => {
+        if (err) {
+          console.error("Error adding workspace:", err);
+          res.status(500).json({ error: "Error adding workspace" });
+        } else {
+          res.json({ message: "Workspace added successfully!" });
+        }
+      });
+    }
+  });
+});
+
 app.post("/api/updateProfile", (req, res) => {
   const { userId, nome, email, nascimento, genero, foto } = req.body;
 
@@ -117,15 +184,19 @@ app.post("/api/updateProfile", (req, res) => {
     WHERE id = ?
   `;
 
-  connection.query(sql, [nome, email, nascimento, genero, foto, userId], (err, result) => {
-    if (err) {
-      console.error('Error updating profile:', err);
-      res.status(500).json({ error: 'Error updating profile' });
-    } else {
-      console.log('Profile updated successfully!');
-      res.json({ message: 'Profile updated successfully!' });
+  connection.query(
+    sql,
+    [nome, email, nascimento, genero, foto, userId],
+    (err, result) => {
+      if (err) {
+        console.error("Error updating profile:", err);
+        res.status(500).json({ error: "Error updating profile" });
+      } else {
+        console.log("Profile updated successfully!");
+        res.json({ message: "Profile updated successfully!" });
+      }
     }
-  });
+  );
 });
 
 app.listen(PORT, () => {

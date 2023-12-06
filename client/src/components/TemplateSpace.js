@@ -1,10 +1,14 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import TemplateBlock from "./TemplateBlock";
 import "../styles/TemplatesSpace.css";
 import EmptyBlock from "./EmptyBlock";
 
-function TemplateSpace() {
-    const [selectedTemplates, setSelectedTemplates] = useState({});
+function TemplateSpace({ spaceId }) {
+  const [selectedTemplates, setSelectedTemplates] = useState({});
+
+  useEffect(() => {
+    setSelectedTemplates({});
+  }, [spaceId]);
 
   const handleTemplateSelection = (templateComponent, blockId) => {
     setSelectedTemplates((prevSelected) => ({
