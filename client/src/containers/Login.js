@@ -1,36 +1,70 @@
-import React from "react";
+import React, { useState } from "react";
 import BesideForm from "../components/BesideForm";
-import "../styles/Login.css";
 import { Link } from "react-router-dom";
+import axios from "axios";
 
 function Login() {
+  const [formData, setFormData] = useState({
+    email: "",
+    password: "",
+  });
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prevData) => ({
+      ...prevData,
+      [name]: value,
+    }));
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    axios
+      .post("/api/login", formData)
+      .then((response) => {
+        console.log(response.data.message);
+        if (response.data.message === "Login successful") {
+          localStorage.setItem("token", response.data.token);
+          window.location.href = "/homepage";
+        } else {
+          console.error("Invalid credentials");
+        }
+      })
+      .catch((error) => {
+        console.error("Error logging in:", error);
+      });
+  };
+
   return (
     <div className="LoginBody">
       <BesideForm />
-      <form>
+      <form onSubmit={handleSubmit}>
         <h1>Login</h1>
-        <span class="inputSpan">
-          <label for="email">E-mail</label>
+        <span className="inputSpan">
+          <label htmlFor="email">E-mail</label>
           <input
             name="email"
             type="email"
             placeholder="Enter your email"
+            value={formData.email}
+            onChange={handleChange}
           ></input>
         </span>
-        <span class="inputSpan">
-          <label for="password">Password</label>
+        <span className="inputSpan">
+          <label htmlFor="password">Password</label>
           <input
             name="password"
             type="password"
             placeholder="Enter your password"
+            value={formData.password}
+            onChange={handleChange}
           ></input>
           <Link to="">I forgot my password</Link>
         </span>
 
-        <span class="submitSpan">
-          <Link to="/homepage">
-            <input type="submit" value="Log In" />
-          </Link>
+        <span className="submitSpan">
+          <input type="submit" value="Log In" />
           <Link to="/createaccount">Don't have an account? Click here!</Link>
         </span>
       </form>

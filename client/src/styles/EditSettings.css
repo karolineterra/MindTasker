@@ -1,42 +1,46 @@
-.profileInformationEditSettings {
+.editSettingsBody {
     max-width: 70%;
     margin: auto;
     display: flex;
     flex-direction: column;
-}
-
-.profileInformationEditSettings h1 {
+  }
+  
+  .editSettingsBody h1 {
     align-self: center;
     margin-bottom: 1rem;
-}
-
-.profileInformationEditSettingsRow {
-    display: flex;
-    gap: 40px;
-    align-items: center;
-}
-
-.profileInformationEditLeftContainer {
+  }
+  
+  .editSettingsInputSpan {
     display: flex;
     flex-direction: column;
     gap: 20px;
-}
-.profileInformationEditRightContainer {
-    display: flex;
-    flex-direction: column;
-}
-.profileInformationEditRightContainer form {
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-}
-.profileInformationEditRightContainer form label {
+  }
+  
+  .editSettingsInputSpan label {
     display: flex;
     flex-direction: column;
     gap: 4px;
-}
-.profileInformationEditRightContainer form label input, select {
+  }
+  
+  .editSettingsInputSpan input,
+  .editSettingsSelect {
     padding: 10px 20px;
     border: 3px solid var(--maincolor);
     border-radius: 20px;
-}
+  }
+  
+  .editSettingsSubmitSpan {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+  }
+  
+  .editSettingsSubmitSpan input {
+    padding: 10px 20px;
+    background-color: var(--maincolor);
+    color: white;
+    border: none;
+    border-radius: 20px;
+    cursor: pointer;
+  }
+  

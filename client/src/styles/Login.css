@@ -67,3 +67,22 @@
 ::-ms-input-placeholder { /* Edge 12 -18 */
 color: white;
 }
+
+/* Adicione esta regra para estilizar o menu suspenso (select) */
+.LoginBody .inputSpan select {
+height: 3.3rem;
+background-color: var(--maincolor);
+border-radius: 0.3rem;
+border: 0;
+padding: 0 2rem;
+color: white;
+margin: 1rem 0;
+cursor: pointer;
+appearance: none; /* Remove a seta padrão do menu suspenso */
+background-image: url('data:image/svg+xml;utf8,<svg fill="black" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M7 10l5 5 5-5z"/><path d="M0 0h24v24H0z" fill="none"/></svg>'); /* Adiciona um ícone de seta personalizado */
+background-repeat: no-repeat;
+background-position: right 1.5rem center; /* Posiciona o ícone à direita do menu suspenso */
+}
+
+
+  
