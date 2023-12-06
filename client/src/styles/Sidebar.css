@@ -63,19 +63,21 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 1.5rem;
+    gap: 1rem;
     
 }
-.userSpaces ul a {
-    text-decoration: none;
+.userSpaces ul li button {
+    background: none;
+    border: none;
     color: #000;
     font-size: 1rem; 
+    padding: 10px 38px;
 }
 
-.userSpaces ul a:hover {
+.userSpaces ul li button:hover {
     background-color: #0000001c;
     border-radius: 50px;
-    padding: 10px 38px;
+    /* padding: 10px 38px; */
 }
 
 .userSpaces .selectedSpace {

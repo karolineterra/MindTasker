@@ -175,6 +175,44 @@ app.post("/api/addWorkspace", (req, res) => {
   });
 });
 
+app.get("/api/templates/:spaceId", (req, res) => {
+  const { spaceId } = req.params;
+  const token = req.headers.authorization.split(" ")[1];
+
+  jwt.verify(token, SECRET_KEY, (err, decoded) => {
+    if (err) {
+      console.error("Error decoding token:", err);
+      res.status(401).json({ error: "Invalid token" });
+    } else {
+      // const userId = decoded.userId;
+
+      const sql = `
+        SELECT 'kanban' as type, espaco FROM kanban WHERE workspace_id = ?
+        UNION ALL
+        SELECT 'pomodoro' as type, espaco FROM pomodoro WHERE workspace_id = ?
+        UNION ALL
+        SELECT 'todolist' as type, espaco FROM todolist WHERE workspace_id = ?
+        UNION ALL
+        SELECT 'notas' as type, espaco FROM notas WHERE workspace_id = ?
+      `;
+
+      connection.query(
+        sql,
+        [spaceId, spaceId, spaceId, spaceId],
+        (err, results) => {
+          if (err) {
+            console.error("Error fetching templates:", err);
+            res.status(500).json({ error: "Error fetching templates" });
+          } else {
+            console.log(results);
+            res.json(results);
+          }
+        }
+      );
+    }
+  });
+});
+
 app.post("/api/updateProfile", (req, res) => {
   const { userId, nome, email, nascimento, genero, foto } = req.body;
 

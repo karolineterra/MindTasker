@@ -16,7 +16,7 @@ function HomePage() {
       {selectedSpaceId ? (
         <TemplateSpace spaceId={selectedSpaceId} />
       ) : (
-        <p>Select a template</p>
+        <p>Select a workspace</p>
       )}
     </div>
   );
