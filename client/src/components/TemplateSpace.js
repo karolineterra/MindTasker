@@ -60,6 +60,39 @@ function TemplateSpace({ spaceId }) {
       ...prevSelected,
       [blockId]: templateComponent,
     }));
+
+    const token = localStorage.getItem("token");
+
+    if (token && spaceId) {
+      const templateType = templateComponent.templateType;
+
+      console.log("Selected template type:", templateType);
+
+      if (!templateType) {
+        console.error(
+          "Template type is undefined. Check if templateType is set on the template component.",
+          templateComponent
+        );
+        return;
+      }
+
+      axios
+        .post(
+          `/api/addTemplate/${spaceId}`,
+          { type: templateType, espaco: blockId + 1 },
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        )
+        .then((response) => {
+          console.log(response.data.message);
+        })
+        .catch((error) => {
+          console.error(`Error adding ${templateType} template:`, error);
+        });
+    }
   };
 
   return (
@@ -67,25 +100,25 @@ function TemplateSpace({ spaceId }) {
       <TemplateBlock
         Component={selectedTemplates[0] || EmptyBlock}
         onTemplateSelect={(templateComponent) =>
-          handleTemplateSelection(templateComponent, 1)
+          handleTemplateSelection(templateComponent, 0)
         }
       />
       <TemplateBlock
         Component={selectedTemplates[1] || EmptyBlock}
         onTemplateSelect={(templateComponent) =>
-          handleTemplateSelection(templateComponent, 2)
+          handleTemplateSelection(templateComponent, 1)
         }
       />
       <TemplateBlock
         Component={selectedTemplates[2] || EmptyBlock}
         onTemplateSelect={(templateComponent) =>
-          handleTemplateSelection(templateComponent, 3)
+          handleTemplateSelection(templateComponent, 2)
         }
       />
       <TemplateBlock
         Component={selectedTemplates[3] || EmptyBlock}
         onTemplateSelect={(templateComponent) =>
-          handleTemplateSelection(templateComponent, 4)
+          handleTemplateSelection(templateComponent, 3)
         }
       />
     </div>

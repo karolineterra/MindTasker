@@ -175,6 +175,7 @@ app.post("/api/addWorkspace", (req, res) => {
   });
 });
 
+//Rota para renderizar os templates
 app.get("/api/templates/:spaceId", (req, res) => {
   const { spaceId } = req.params;
   const token = req.headers.authorization.split(" ")[1];
@@ -184,8 +185,6 @@ app.get("/api/templates/:spaceId", (req, res) => {
       console.error("Error decoding token:", err);
       res.status(401).json({ error: "Invalid token" });
     } else {
-      // const userId = decoded.userId;
-
       const sql = `
         SELECT 'kanban' as type, espaco FROM kanban WHERE workspace_id = ?
         UNION ALL
@@ -209,6 +208,59 @@ app.get("/api/templates/:spaceId", (req, res) => {
           }
         }
       );
+    }
+  });
+});
+
+//rota para salvar templates selecionados
+app.post("/api/addTemplate/:spaceId", (req, res) => {
+  const { spaceId } = req.params;
+  const { type, espaco } = req.body;
+  const token = req.headers.authorization.split(" ")[1];
+
+  jwt.verify(token, SECRET_KEY, (err, decoded) => {
+    if (err) {
+      console.error("Error decoding token:", err);
+      res.status(401).json({ error: "Invalid token" });
+    } else {
+      const userId = decoded.userId;
+
+      let insertSql;
+      let values;
+
+      switch (type) {
+        case "kanban":
+          insertSql =
+            "INSERT INTO kanban (espaco, workspace_id, usuario_id) VALUES (?, ?, ?)";
+          values = [espaco, spaceId, userId];
+          break;
+        case "pomodoro":
+          insertSql =
+            "INSERT INTO pomodoro (espaco, workspace_id) VALUES (?, ?)";
+          values = [espaco, spaceId];
+          break;
+        case "todolist":
+          insertSql =
+            "INSERT INTO todolist (espaco, workspace_id) VALUES (?, ?)";
+          values = [espaco, spaceId];
+          break;
+        case "notas":
+          insertSql = "INSERT INTO notas (espaco, workspace_id) VALUES (?, ?)";
+          values = [espaco, spaceId];
+          break;
+        default:
+          res.status(400).json({ error: "Invalid template type" });
+          return;
+      }
+
+      connection.query(insertSql, values, (err, result) => {
+        if (err) {
+          console.error(`Error adding ${type} template:`, err);
+          res.status(500).json({ error: `Error adding ${type} template` });
+        } else {
+          res.json({ message: `${type} template added successfully!` });
+        }
+      });
     }
   });
 });

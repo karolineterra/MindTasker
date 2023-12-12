@@ -6,7 +6,7 @@ import editImage from "../assets/editar.png";
 
 function KanbanBoard() {
   const customColors = ["#E1F65A", "#F65A5A", "#ACD2F5", "#EBACF5", "#ACF5BC"];
-
+  KanbanBoard.templateType = "kanban";
   const [toDoTasks, setToDoTasks] = useState([]);
   const [inProgressTasks, setInProgressTasks] = useState([]);
   const [doneTasks, setDoneTasks] = useState([]);

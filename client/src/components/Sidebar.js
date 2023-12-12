@@ -16,7 +16,7 @@ function Sidebar({ onSpaceSelect }) {
 
   const handleSpaceSelection = (spaceId) => {
     setSelectedSpaceId(spaceId);
-    if(onSpaceSelect) {
+    if (onSpaceSelect) {
       onSpaceSelect(spaceId);
     }
   };
