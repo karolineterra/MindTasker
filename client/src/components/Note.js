@@ -4,7 +4,7 @@ import Save from "../assets/Save.png";
 import "../styles/Note.css";
 
 function Note() {
-  const templateType = "notas";
+  // const templateType = "notas";
   const [note, setNote] = useState({
     title: "Note Title",
     content: "Note Content",

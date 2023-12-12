@@ -3,7 +3,7 @@ import "../styles/Todo.css";
 import addImage from "../assets/add.png";
 
 function TodoList() {
-  const templateType = "todolist";
+  // const templateType = "todolist";
 
   const [tasks, setTasks] = useState([]);
   const [newTask, setNewTask] = useState("Enter task name");

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import "../styles/Pomodoro.css";
 
 function Pomodoro() {
-  const templateType = "pomodoro";
+  // const templateType = "pomodoro";
 
   const [workMinutes, setWorkMinutes] = useState(25);
   const [breakMinutes, setBreakMinutes] = useState(5);
