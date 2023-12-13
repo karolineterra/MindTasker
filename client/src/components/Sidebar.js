@@ -1,26 +1,18 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+import Modal from "react-modal";
 import userImage from "../assets/user-default.png";
 import addSpaceImage from "../assets/add.png";
 import logoutImage from "../assets/logout.png";
-import "../styles/Sidebar.css";
-
 import closeIcon from "../assets/closeIcon.png";
 import editIcon from "../assets/editIcon.png";
 import informationIcon from "../assets/infoCircle.png";
 import menuIcon from "../assets/menu-hamburguer.png";
 import axios from "axios";
+import "../styles/Sidebar.css";
 
 function Sidebar({ onSpaceSelect }) {
   const [selectedSpaceId, setSelectedSpaceId] = useState(null);
-
-  const handleSpaceSelection = (spaceId) => {
-    setSelectedSpaceId(spaceId);
-    if (onSpaceSelect) {
-      onSpaceSelect(spaceId);
-    }
-  };
-
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [userData, setUserData] = useState({
     name: "username",
@@ -29,10 +21,24 @@ function Sidebar({ onSpaceSelect }) {
   const [workspaces, setWorkspaces] = useState([]);
   const [newSpaceName, setNewSpaceName] = useState("");
   const [isAddingSpace, setIsAddingSpace] = useState(false);
+  const [isColorModalOpen, setIsColorModalOpen] = useState(false);
+  const [selectedColor, setSelectedColor] = useState("#3D4E78");
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
   };
+
+  const toggleColorModal = () => {
+    setIsColorModalOpen(!isColorModalOpen);
+  };
+
+  const handleSpaceSelection = (spaceId) => {
+    setSelectedSpaceId(spaceId);
+    if (onSpaceSelect) {
+      onSpaceSelect(spaceId);
+    }
+  };
+
   useEffect(() => {
     const token = localStorage.getItem("token");
 
@@ -50,6 +56,7 @@ function Sidebar({ onSpaceSelect }) {
         .catch((error) => {
           console.error("Error fetching user data:", error);
         });
+
       axios
         .get("http://localhost:3001/api/workspaces", {
           headers: {
@@ -64,6 +71,20 @@ function Sidebar({ onSpaceSelect }) {
         });
     }
   }, []);
+
+  const handleInputChange = (e) => {
+    setNewSpaceName(e.target.value);
+  };
+
+  const handleKeyDown = (e) => {
+    if (e.key === "Enter") {
+      addWorkspace();
+    } else if (e.key === "Escape") {
+      setIsAddingSpace(false);
+      setNewSpaceName("");
+    }
+  };
+
   const addWorkspace = () => {
     const token = localStorage.getItem("token");
 
@@ -79,7 +100,6 @@ function Sidebar({ onSpaceSelect }) {
           }
         )
         .then((response) => {
-          // Atualiza a lista de workspaces após adicionar um novo
           axios
             .get("/api/workspaces", {
               headers: {
@@ -88,8 +108,8 @@ function Sidebar({ onSpaceSelect }) {
             })
             .then((response) => {
               setWorkspaces(response.data);
-              setIsAddingSpace(false); // Fecha o input após adicionar o espaço
-              setNewSpaceName(""); // Limpa o nome do novo espaço
+              setIsAddingSpace(false);
+              setNewSpaceName("");
             })
             .catch((error) => {
               console.error("Error fetching workspaces:", error);
@@ -101,17 +121,34 @@ function Sidebar({ onSpaceSelect }) {
     }
   };
 
-  const handleInputChange = (e) => {
-    setNewSpaceName(e.target.value);
+  const handleColorChange = (color) => {
+    setSelectedColor(color);
   };
+  useEffect(() => {
+    document.documentElement.style.setProperty('--maincolor', selectedColor);
+  }, [selectedColor]);
+  
+  const saveColor = () => {
+    const token = localStorage.getItem("token");
 
-  const handleKeyDown = (e) => {
-    if (e.key === "Enter") {
-      addWorkspace();
-    } else if (e.key === "Escape") {
-      // Fecha o input se a tecla Esc for pressionada
-      setIsAddingSpace(false);
-      setNewSpaceName("");
+    if (token) {
+      axios
+        .post(
+          "/api/changecolor",
+          { color: selectedColor },
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        )
+        .then((response) => {
+          console.log(response.data.message);
+          toggleColorModal();
+        })
+        .catch((error) => {
+          console.error("Error changing color:", error);
+        });
     }
   };
 
@@ -134,6 +171,9 @@ function Sidebar({ onSpaceSelect }) {
             <Link className="editProfile" to="/settings">
               Edit profile <img src={editIcon} alt="Edit"></img>
             </Link>
+            <button className="changeColor" onClick={toggleColorModal}>
+              Change color<img src={editIcon} alt="Edit"></img>
+            </button>
             <div></div>
           </div>
 
@@ -183,6 +223,47 @@ function Sidebar({ onSpaceSelect }) {
         </>
       )}
       {isMenuOpen && <div className="menu-hamburguer-content"></div>}
+
+      <Modal
+        isOpen={isColorModalOpen}
+        onRequestClose={toggleColorModal}
+        className="color-modal"
+      >
+        <h2>Change Color</h2>
+        <div className="color-options">
+          <button
+            style={{ backgroundColor: "#3D4E78" }}
+            onClick={() => handleColorChange("#3D4E78")}
+            className={selectedColor === "#3D4E78" ? "selected" : ""}
+          ></button>
+          <button
+            style={{ backgroundColor: "#AA90D4" }}
+            onClick={() => handleColorChange("#AA90D4")}
+            className={selectedColor === "#AA90D4" ? "selected" : ""}
+          ></button>
+          <button
+            style={{ backgroundColor: "#DAC064" }}
+            onClick={() => handleColorChange("#DAC064")}
+            className={selectedColor === "#DAC064" ? "selected" : ""}
+          ></button>
+          <button
+            style={{ backgroundColor: "#1F1E1E" }}
+            onClick={() => handleColorChange("#1F1E1E")}
+            className={selectedColor === "#1F1E1E" ? "selected" : ""}
+          ></button>
+          <button
+            style={{ backgroundColor: "#E16A6A" }}
+            onClick={() => handleColorChange("#E16A6A")}
+            className={selectedColor === "#E16A6A" ? "selected" : ""}
+          ></button>
+          <button
+            style={{ backgroundColor: "#5CB083" }}
+            onClick={() => handleColorChange("#5CB083")}
+            className={selectedColor === "#5CB083" ? "selected" : ""}
+          ></button>
+        </div>
+        <button onClick={saveColor}>Save</button>
+      </Modal>
     </nav>
   );
 }

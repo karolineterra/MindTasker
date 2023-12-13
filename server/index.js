@@ -245,8 +245,8 @@ app.post("/api/addTemplate/:spaceId", (req, res) => {
           values = [espaco, spaceId];
           break;
         case "notas":
-          insertSql = "INSERT INTO notas (espaco, workspace_id) VALUES (?, ?)";
-          values = [espaco, spaceId];
+          insertSql = "INSERT INTO notas (espaco, workspace_id, nome, conteudo) VALUES (?, ?, ?, ?)";
+          values = [espaco, spaceId, 'texto aqui', 'texto aqui'];
           break;
         default:
           res.status(400).json({ error: "Invalid template type" });
@@ -297,6 +297,38 @@ app.post("/api/updateProfile", (req, res) => {
           }
         }
       );
+    }
+  });
+});
+
+//rota mudar cor preferida
+app.post("/api/changecolor", (req, res) => {
+  const { color } = req.body;
+
+  const token = req.headers.authorization.split(" ")[1];
+
+  jwt.verify(token, SECRET_KEY, (err, decoded) => {
+    if (err) {
+      console.error("Error decoding token:", err);
+      res.status(401).json({ error: "Invalid token" });
+    } else {
+      const userId = decoded.userId;
+
+      const sql = `
+        UPDATE usuario
+        SET cor_preferida = ?
+        WHERE id = ?
+      `;
+
+      connection.query(sql, [color, userId], (err, result) => {
+        if (err) {
+          console.error("Error changing color:", err);
+          res.status(500).json({ error: "Error changing color" });
+        } else {
+          console.log("Color changed successfully!");
+          res.json({ message: "Color changed successfully!" });
+        }
+      });
     }
   });
 });

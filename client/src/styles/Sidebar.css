@@ -203,3 +203,57 @@ button.menuIcon {
     width: 100%;
     justify-content: space-evenly;
   }
+  .changeColor{
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    text-decoration: none;
+    color: #000;
+    font-size: 0.75rem;
+  }
+  .color-modal {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 20px;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+  }
+  
+  .color-options {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-bottom: 20px;
+  }
+  
+  .color-options button {
+    width: 40px;
+    height: 40px;
+    margin: 5px;
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+  }
+  
+  .color-options button.selected {
+    outline: 2px solid #000;
+  }
+  
+  .color-modal button {
+    padding: 10px 20px;
+    background-color: var(--maincolor);
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .color-modal button:hover {
+    background-color: #2c3a5a;
+  }
+  
