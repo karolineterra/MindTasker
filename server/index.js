@@ -15,7 +15,7 @@ app.use(bodyParser.json());
 const connection = mysql.createConnection({
   host: "localhost",
   user: "root",
-  password: "MindtaskerAdmin1234",
+  password: "ghssh64.g",
   database: "mindtasker",
   port: 3306,
 });
@@ -87,7 +87,7 @@ app.get("/api/user", (req, res) => {
       const userId = decoded.userId;
 
       const sql = `
-        SELECT nome, foto, email, nascimento, genero FROM usuario
+        SELECT nome, foto, email, DATE_FORMAT(nascimento, '%Y-%m-%d') as nascimento, genero FROM usuario
         WHERE id = ?
       `;
 
@@ -265,28 +265,40 @@ app.post("/api/addTemplate/:spaceId", (req, res) => {
   });
 });
 
+//rota para editar informações do perfil
 app.post("/api/updateProfile", (req, res) => {
-  const { userId, nome, email, nascimento, genero, foto } = req.body;
+  const { nome, email, nascimento, genero, foto } = req.body;
 
-  const sql = `
-    UPDATE usuario
-    SET nome = ?, email = ?, nascimento = ?, genero = ?, foto = ?
-    WHERE id = ?
-  `;
+  const token = req.headers.authorization.split(" ")[1];
 
-  connection.query(
-    sql,
-    [nome, email, nascimento, genero, foto, userId],
-    (err, result) => {
-      if (err) {
-        console.error("Error updating profile:", err);
-        res.status(500).json({ error: "Error updating profile" });
-      } else {
-        console.log("Profile updated successfully!");
-        res.json({ message: "Profile updated successfully!" });
-      }
+  jwt.verify(token, SECRET_KEY, (err, decoded) => {
+    if (err) {
+      console.error("Error decoding token:", err);
+      res.status(401).json({ error: "Invalid token" });
+    } else {
+      const userId = decoded.userId;
+
+      const sql = `
+        UPDATE usuario
+        SET nome = ?, email = ?, nascimento = ?, genero = ?, foto = ?
+        WHERE id = ?
+      `;
+
+      connection.query(
+        sql,
+        [nome, email, nascimento, genero, foto, userId],
+        (err, result) => {
+          if (err) {
+            console.error("Error updating profile:", err);
+            res.status(500).json({ error: "Error updating profile" });
+          } else {
+            console.log("Profile updated successfully!");
+            res.json({ message: "Profile updated successfully!" });
+          }
+        }
+      );
     }
-  );
+  });
 });
 
 app.listen(PORT, () => {

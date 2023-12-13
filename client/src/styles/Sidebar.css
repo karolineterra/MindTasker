@@ -30,7 +30,9 @@
     margin-top: 10%;
 }
 .userImage {
-    width: 50%;
+    width: 8rem;
+    height: 9rem;
+    border-radius: 50%;
 }
 
 .userName {
