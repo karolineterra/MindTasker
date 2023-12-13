@@ -87,7 +87,7 @@ app.get("/api/user", (req, res) => {
       const userId = decoded.userId;
 
       const sql = `
-        SELECT nome, foto, email, DATE_FORMAT(nascimento, '%Y-%m-%d') as nascimento, genero FROM usuario
+        SELECT nome, foto, email, DATE_FORMAT(nascimento, '%Y-%m-%d') as nascimento, genero, cor_preferida FROM usuario
         WHERE id = ?
       `;
 
@@ -103,6 +103,7 @@ app.get("/api/user", (req, res) => {
               email: results[0].email,
               nascimento: results[0].nascimento,
               genero: results[0].genero,
+              cor_preferida: results[0].cor_preferida,
             };
             res.json(userData);
           } else {

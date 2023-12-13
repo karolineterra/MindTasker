@@ -52,6 +52,7 @@ function Sidebar({ onSpaceSelect }) {
         .then((response) => {
           const { nome, foto } = response.data;
           setUserData({ name: nome, image: foto || userImage });
+          setSelectedColor(response.data.cor_preferida || "#3D4E78");
         })
         .catch((error) => {
           console.error("Error fetching user data:", error);
@@ -247,9 +248,9 @@ function Sidebar({ onSpaceSelect }) {
             className={selectedColor === "#DAC064" ? "selected" : ""}
           ></button>
           <button
-            style={{ backgroundColor: "#1F1E1E" }}
-            onClick={() => handleColorChange("#1F1E1E")}
-            className={selectedColor === "#1F1E1E" ? "selected" : ""}
+            style={{ backgroundColor: "#886868" }}
+            onClick={() => handleColorChange("#886868")}
+            className={selectedColor === "#886868" ? "selected" : ""}
           ></button>
           <button
             style={{ backgroundColor: "#E16A6A" }}
