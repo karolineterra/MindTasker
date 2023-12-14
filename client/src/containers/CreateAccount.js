@@ -12,6 +12,8 @@ function CreateAccount() {
     birth: "",
     gender: "",
   });
+  const [showSuccess, setShowSuccess] = useState(false);
+  const [showWarning, setShowWarning] = useState(false);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -26,10 +28,12 @@ function CreateAccount() {
 
     axios.post("/api/createAccount", formData)
       .then((response) => {
+        setShowSuccess(true)
         console.log(response.data.message);
         window.location.href = "/login";
       })
       .catch((error) => {
+        setShowWarning(true)
         console.error("Error creating account:", error);
       });
   };
@@ -95,7 +99,12 @@ function CreateAccount() {
             <option value="other">Other</option>
           </select>
         </span>
-
+        {showSuccess&&(
+        <span className="success">Account created successfully!</span>
+          )}
+          {showWarning&&(
+        <span className="warning">Error creating account!</span>
+          )}
         <span className="submitSpan">
           <input type="submit" value="Confirm" />
           <Link to="/login">Already have an account? Click here!</Link>

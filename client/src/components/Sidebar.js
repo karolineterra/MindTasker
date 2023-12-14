@@ -22,7 +22,7 @@ function Sidebar({ onSpaceSelect }) {
   const [newSpaceName, setNewSpaceName] = useState("");
   const [isAddingSpace, setIsAddingSpace] = useState(false);
   const [isColorModalOpen, setIsColorModalOpen] = useState(false);
-  const [selectedColor, setSelectedColor] = useState("#3D4E78");
+  const [selectedColor, setSelectedColor] = useState("#AA90D4");
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);

@@ -8,6 +8,7 @@ function Login() {
     email: "",
     password: "",
   });
+  const [showWarning, setShowWarning] = useState(false);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -28,10 +29,12 @@ function Login() {
           localStorage.setItem("token", response.data.token);
           window.location.href = "/homepage";
         } else {
+          setShowWarning(true)
           console.error("Invalid credentials");
         }
       })
       .catch((error) => {
+        setShowWarning(true)
         console.error("Error logging in:", error);
       });
   };
@@ -62,7 +65,9 @@ function Login() {
           ></input>
           <Link to="">I forgot my password</Link>
         </span>
-
+        {showWarning&&(
+        <span className="warning">Wrong password or email!</span>
+          )}
         <span className="submitSpan">
           <input type="submit" value="Log In" />
           <Link to="/createaccount">Don't have an account? Click here!</Link>
