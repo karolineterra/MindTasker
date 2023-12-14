@@ -53,7 +53,6 @@ function TemplateSpace({ spaceId }) {
     }
   }, [spaceId]);
 
-  console.log(selectedTemplates);
 
   const handleTemplateSelection = (templateComponent, blockId) => {
     setSelectedTemplates((prevSelected) => ({

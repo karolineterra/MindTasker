@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import axios from "axios";
 import "../styles/kanban.css";
 import addImage from "../assets/icon-add-grey.png";
 import deleteImage from "../assets/excluir.png";
@@ -112,6 +113,31 @@ function KanbanBoard() {
     setEditingTitleDone("");
   };
 
+  const fetchTasks = async () => {
+    try {
+      const token = localStorage.getItem("token");
+      console.log("Token from localStorage:", token);
+
+      const res = await axios.get("/api/tasks", {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      setToDoTasks(res.data.filter((task) => task.estado === "todo"));
+      setInProgressTasks(
+        res.data.filter((task) => task.estado === "inprogress")
+      );
+      setDoneTasks(res.data.filter((task) => task.estado === "done"));
+    } catch (error) {
+      console.error("Error fetching tasks:", error);
+    }
+  };
+
+  useEffect(() => {
+    fetchTasks();
+  }, []);
+
   return (
     <div className="kanbanContainer">
       <div className="kanbanBoard">
@@ -121,7 +147,7 @@ function KanbanBoard() {
             <div
               key={task.id}
               className="kanbanTask"
-              style={{ backgroundColor: task.color }}
+              style={{ backgroundColor: task.background_color }}
             >
               {editingTask === task.id ? (
                 <div className="editable-task">
@@ -138,7 +164,7 @@ function KanbanBoard() {
                 </div>
               ) : (
                 <>
-                  <p>{task.title}</p>
+                  <p>{task.nome}</p>
                   <div className="kanbanTaskButtons">
                     <button onClick={() => deleteTask(task.id, "todo")}>
                       <img src={deleteImage} alt="Delete Icon" />
@@ -170,7 +196,7 @@ function KanbanBoard() {
             <div
               key={task.id}
               className="kanbanTask"
-              style={{ backgroundColor: task.color }}
+              style={{ backgroundColor: task.background_color }}
             >
               {editingTask === task.id ? (
                 <div className="editable-task">
@@ -193,7 +219,7 @@ function KanbanBoard() {
                 </div>
               ) : (
                 <>
-                  <p>{task.title}</p>
+                  <p>{task.nome}</p>
                   <div className="kanbanTaskButtons">
                     <button onClick={() => deleteTask(task.id, "inProgress")}>
                       <img src={deleteImage} alt="Delete Icon" />
@@ -227,7 +253,7 @@ function KanbanBoard() {
             <div
               key={task.id}
               className="kanbanTask"
-              style={{ backgroundColor: task.color }}
+              style={{ backgroundColor: task.background_color }}
             >
               {editingTask === task.id ? (
                 <div className="editable-task">
@@ -246,7 +272,7 @@ function KanbanBoard() {
                 </div>
               ) : (
                 <>
-                  <p>{task.title}</p>
+                  <p>{task.nome}</p>
                   <div className="kanbanTaskButtons">
                     <button onClick={() => deleteTask(task.id, "done")}>
                       <img src={deleteImage} alt="Delete Icon" />

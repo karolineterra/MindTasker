@@ -15,7 +15,7 @@ app.use(bodyParser.json());
 const connection = mysql.createConnection({
   host: "localhost",
   user: "root",
-  password: "ghssh64.g",
+  password: "MindtaskerAdmin1234",
   database: "mindtasker",
   port: 3306,
 });
@@ -66,9 +66,33 @@ app.post("/api/login", (req, res) => {
     } else {
       if (results.length > 0) {
         const userId = results[0].id;
-        const token = jwt.sign({ userId }, SECRET_KEY, { expiresIn: "1h" });
 
-        res.json({ message: "Login successful", token });
+        const kanbanIdQuery = `
+          SELECT id, workspace_id FROM kanban
+          WHERE usuario_id = ?
+        `;
+        let kanbanId;
+        connection.query(
+          kanbanIdQuery,
+          [userId],
+          (kanbanErr, kanbanResults) => {
+            if (kanbanErr) {
+              console.error("Error fetching kanbanId:", kanbanErr);
+              res.status(500).json({ error: "Error during login" });
+            } else {
+              if (kanbanResults.length > 0) {
+                kanbanIds = kanbanResults;
+              } else {
+                kanbanId = null;
+              }
+
+              const token = jwt.sign({ userId, kanbanId }, SECRET_KEY, {
+                expiresIn: "1h",
+              });
+              res.json({ message: "Login successful", token });
+            }
+          }
+        );
       } else {
         res.status(401).json({ error: "Invalid credentials" });
       }
@@ -205,7 +229,6 @@ app.delete("/api/deleteWorkspace/:spaceId", (req, res) => {
   });
 });
 
-
 //Rota para renderizar os templates
 app.get("/api/templates/:spaceId", (req, res) => {
   const { spaceId } = req.params;
@@ -276,8 +299,9 @@ app.post("/api/addTemplate/:spaceId", (req, res) => {
           values = [espaco, spaceId];
           break;
         case "notas":
-          insertSql = "INSERT INTO notas (espaco, workspace_id, nome, conteudo) VALUES (?, ?, ?, ?)";
-          values = [espaco, spaceId, 'texto aqui', 'texto aqui'];
+          insertSql =
+            "INSERT INTO notas (espaco, workspace_id, nome, conteudo) VALUES (?, ?, ?, ?)";
+          values = [espaco, spaceId, "texto aqui", "texto aqui"];
           break;
         default:
           res.status(400).json({ error: "Invalid template type" });
@@ -358,6 +382,48 @@ app.post("/api/changecolor", (req, res) => {
         } else {
           console.log("Color changed successfully!");
           res.json({ message: "Color changed successfully!" });
+        }
+      });
+    }
+  });
+});
+
+//rota para pegar tarefas do kanban
+app.get("/api/tasks", (req, res) => {
+  const token = req.headers.authorization.split(" ")[1];
+
+  if (!token) {
+    console.error("Token not found");
+    res.status(401).json({ error: "Token not found" });
+    return;
+  }
+
+  jwt.verify(token, SECRET_KEY, (err, decoded) => {
+    if (err) {
+      console.error("Error decoding token:", err);
+      res.status(401).json({ error: "Invalid token" });
+    } else {
+      const kanbanId = decoded.kanbanId;
+
+      if (!kanbanId) {
+        console.error("Kanban ID not found in decoded token");
+        console.log(decoded.userId);
+        res.status(401).json({ error: "Kanban ID not found in token" });
+        return;
+      }
+
+      const sql = `
+        SELECT id, nome, estado, background_color FROM tarefakanban
+        WHERE kanban_id = ?
+      `;
+
+      connection.query(sql, [kanbanId], (err, results) => {
+        if (err) {
+          console.error("Error fetching tasks:", err);
+          res.status(500).json({ error: "Error fetching tasks" });
+        } else {
+          console.log("Tasks fetched successfully:", results);
+          res.json(results);
         }
       });
     }
