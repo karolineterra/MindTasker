@@ -30,8 +30,8 @@
     margin-top: 10%;
 }
 .userImage {
-    width: 8rem;
-    height: 9rem;
+    width: 6rem;
+    height: 6rem;
     border-radius: 50%;
 }
 
@@ -75,6 +75,7 @@
     font-size: 1rem; 
     padding: 10px 38px;
 }
+
 
 .userSpaces ul li button:hover {
     background-color: #0000001c;
@@ -218,9 +219,10 @@ button.menuIcon {
     transform: translate(-50%, -50%);
     padding: 20px;
     background-color: #fff;
-    border: 1px solid #ccc;
+    border: 1px solid var(--maincolor);
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
     text-align: center;
+    border-radius: 5px;
   }
   
   .color-options {
@@ -254,6 +256,41 @@ button.menuIcon {
   }
   
   .color-modal button:hover {
-    background-color: #2c3a5a;
+    opacity: 0.8;
+  }
+  .userSpaces ul li button.deleteSpaceButton {
+    padding: 5px;
+    font-size: 10px;
+}
+.confirmation-modal {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #fff;
+    border: 1px solid var(--maincolor);
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    text-align: center;
+    z-index: 1000;
+    border-radius: 5px;
   }
   
+  .confirmation-modal p {
+    margin-bottom: 20px;
+  }
+  
+  .confirmation-modal button {
+    padding: 10px 20px;
+    background-color: var(--maincolor);
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin-right: 10px;
+  }
+  
+  .confirmation-modal button:hover {
+    opacity: 0.9;
+  }

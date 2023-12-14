@@ -176,6 +176,36 @@ app.post("/api/addWorkspace", (req, res) => {
   });
 });
 
+// rota para deletar espaço
+app.delete("/api/deleteWorkspace/:spaceId", (req, res) => {
+  const { spaceId } = req.params;
+  const token = req.headers.authorization.split(" ")[1];
+
+  jwt.verify(token, SECRET_KEY, (err, decoded) => {
+    if (err) {
+      console.error("Error decoding token:", err);
+      res.status(401).json({ error: "Invalid token" });
+    } else {
+      const userId = decoded.userId;
+
+      const sql = `
+        DELETE FROM workspace
+        WHERE id = ? AND usuario_id = ?
+      `;
+
+      connection.query(sql, [spaceId, userId], (err, result) => {
+        if (err) {
+          console.error("Error deleting workspace:", err);
+          res.status(500).json({ error: "Error deleting workspace" });
+        } else {
+          res.json({ message: "Workspace deleted successfully!" });
+        }
+      });
+    }
+  });
+});
+
+
 //Rota para renderizar os templates
 app.get("/api/templates/:spaceId", (req, res) => {
   const { spaceId } = req.params;

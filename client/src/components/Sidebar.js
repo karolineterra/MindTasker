@@ -152,6 +152,39 @@ function Sidebar({ onSpaceSelect }) {
         });
     }
   };
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
+  const [workspaceToDelete, setWorkspaceToDelete] = useState(null);
+
+  const handleDeleteSpace = (spaceId) => {
+    setWorkspaceToDelete(spaceId);
+    setShowDeleteModal(true);
+  };
+
+  const confirmDeleteSpace = () => {
+    const token = localStorage.getItem("token");
+
+    if (token && workspaceToDelete) {
+      axios
+        .delete(`/api/deleteWorkspace/${workspaceToDelete}`, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        })
+        .then((response) => {
+          setShowDeleteModal(false);
+          setWorkspaces((prevWorkspaces) =>
+            prevWorkspaces.filter((workspace) => workspace.id !== workspaceToDelete)
+          );
+        })
+        .catch((error) => {
+          console.error("Error deleting workspace:", error);
+        });
+    }
+  };
+
+  const cancelDeleteSpace = () => {
+    setShowDeleteModal(false);
+  };
 
   return (
     <nav className={`sidebar ${isMenuOpen ? "menu-open" : ""}`}>
@@ -189,9 +222,19 @@ function Sidebar({ onSpaceSelect }) {
                   >
                     {workspace.nome}
                   </button>
+                  <button className="deleteSpaceButton" onClick={() => handleDeleteSpace(workspace.id)}>
+                    X
+                  </button>
                 </li>
               ))}
             </ul>
+            {showDeleteModal && (
+            <div className="confirmation-modal">
+              <p>Delete  workspace?</p>
+              <button onClick={confirmDeleteSpace}>Delete</button>
+              <button onClick={cancelDeleteSpace}>Cancel</button>
+            </div>
+          )}
             {!isAddingSpace ? (
               <button
                 className="addSpaceButton"
