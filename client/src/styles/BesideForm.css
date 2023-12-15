@@ -1,0 +1,68 @@
+@import url('https://fonts.googleapis.com/css2?family=Lobster&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@200&family=Poppins&display=swap');
+
+
+.besideForm {
+    width: 45vw;
+    height: 100%;
+    background-color: var(--maincolor);
+    text-align: center;
+    padding-left: 2%;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    align-content: center;
+    align-items: center;
+    overflow: hidden;
+  }
+.logotypeBesideForm {
+    font-size: 2rem;
+    font-family: 'Lobster', cursive;
+    font-weight: 400;
+    text-align: left;
+    margin-bottom: 3rem;
+    width: 100%;
+}
+.besideForm h2{
+    font-family: 'Montserrat', sans-serif;
+    font-family: 'Poppins', sans-serif;
+    font-size: 2.355rem;
+    margin: 2% 0;
+    max-width: 70%;
+    text-align: left;
+}
+.besideForm p{
+    font-family: 'Montserrat', sans-serif;
+    font-family: 'Poppins', sans-serif;
+    font-size: 1.05rem;
+    opacity: 0.8;
+    margin: 3% 0;
+    max-width: 70%;
+    text-align: justify;
+}
+.besideForm img{
+    margin-top: 2rem;
+    width: 63%;
+}
+
+@media screen and (max-height: 679px) {
+    /* estilos para monitores com altura menor que 680px aqui */
+    .logotypeBesideForm {
+        margin-bottom: 1.5rem;
+    }
+    .besideForm {
+        padding: 2%;
+    }
+    .besideForm h2 {
+        max-width: 524px;
+        font-size: 2rem;
+    }
+    .besideForm p {
+        max-width: 524px;
+        font-size: 1rem;
+    }
+    .besideForm img {
+        max-width: 50%;
+    }
+  }
+  

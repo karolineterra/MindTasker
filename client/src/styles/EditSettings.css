@@ -1,0 +1,42 @@
+.profileInformationEditSettings {
+    max-width: 70%;
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+}
+
+.profileInformationEditSettings h1 {
+    align-self: center;
+    margin-bottom: 1rem;
+}
+
+.profileInformationEditSettingsRow {
+    display: flex;
+    gap: 40px;
+    align-items: center;
+}
+
+.profileInformationEditLeftContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+.profileInformationEditRightContainer {
+    display: flex;
+    flex-direction: column;
+}
+.profileInformationEditRightContainer form {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+.profileInformationEditRightContainer form label {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+.profileInformationEditRightContainer form label input, select {
+    padding: 10px 20px;
+    border: 3px solid var(--maincolor);
+    border-radius: 20px;
+}

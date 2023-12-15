@@ -1,0 +1,89 @@
+.todo-container {
+    width: 80%;
+    padding: 10px;
+    max-height: 280px;
+    height: 280px;
+    display: flex;
+    flex-direction: column;
+    align-self: center;
+}
+
+
+.todo-container-row {
+    display: flex;
+    justify-content: space-between;
+
+}
+
+.input-task input[type=text]{
+    width: 100%;
+    border: none;
+}
+
+.input-task input[type=text]:not(:focus) {
+    color: rgb(177, 177, 177);
+}
+
+.todo-container h1{
+    font-size: 1.25rem;
+}
+
+.task-list {
+    display: flex;
+    flex-direction: column;
+    /* gap: 4px; */
+    margin-top: 4px;
+    height: 180px;
+    max-height: 200px;
+    overflow-y: auto;
+}
+  
+.add-task-container {
+    margin-top: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+}
+
+.add-task-container input {
+    border-radius: 5px;
+    border: none;
+    padding: 4px;
+}
+.add-task-container input:not(:focus) {
+    color: rgb(177, 177, 177);
+}
+.add-task-container input:focus {
+    outline: 1px solid grey;
+}
+
+.add-task-container button {
+    cursor: pointer;
+    border-radius: 5px;
+    border: 1px solid grey;
+    padding: 2px 4px;
+}
+  
+.task {
+    display: flex;
+    align-items: center;
+    justify-items: center;
+    justify-content: space-between;
+    background-color: #f5f5f5;
+    padding: 8px;
+    margin-top: 8px;
+    border-radius: 5px;
+    width: 90%;
+}
+.task input {
+    margin-right: 8px;
+    width: 16px;
+    height: 16px;
+}
+  
+.task.completed {
+    text-decoration: line-through;
+}
+
+  

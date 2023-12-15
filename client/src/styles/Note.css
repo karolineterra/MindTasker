@@ -1,0 +1,56 @@
+.noteContainer{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 20.3125rem;
+    align-content: center;
+    align-items: center;
+    padding: 2rem;
+    border: 2px dashed black;
+    border-radius: 20px;
+}
+.noteText{
+    overflow-y: auto;
+    height: 75%;
+    width: 100%;
+    overflow-x: hidden;
+}
+.editMode textarea {
+    all: unset;
+    background-color: transparent;
+    overflow-y: auto;
+    overflow-x: hidden;
+    height: 100%;
+    width: 100%;
+    resize: none;
+}
+
+.editMode .noteText {
+    overflow-y: hidden;
+    overflow-x: hidden;
+}
+.noteHeader{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    width: 100%;
+}
+.noteHeader img{
+    text-decoration: none;
+    color: #000;
+    font-size: 0.75rem;
+}
+.noteHeader button{
+    background-color: transparent;
+    border: none;
+}
+.noteText::-webkit-scrollbar {
+    width: 12px; /* Largura da barra de rolagem */
+    background-color: rgb(255, 255, 255);
+    border-radius: 5px;
+}
+
+.noteText::-webkit-scrollbar-thumb {
+    background-color: #b1b0b0; /* Cor do "ponteiro" da barra de rolagem */
+    border-radius: 5px; /* Borda arredondada do "ponteiro" */
+}

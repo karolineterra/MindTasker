@@ -1,0 +1,171 @@
+@import url('https://fonts.googleapis.com/css2?family=Lobster&display=swap');
+
+.sidebar {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: var(--maincolor);
+    height: 100vh;
+    width: 18%;
+    position: relative;
+}
+
+
+/*     LOGOTIPO       */
+
+.logotype {
+    font-size: 2rem;
+    margin-top: 4%;
+    font-family: 'Lobster', cursive;
+    font-weight: 400;
+}
+
+/*     INFORMAÇÕES DO USUÁRIO     */
+
+.userInformation {
+    gap: 4px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 10%;
+}
+.userImage {
+    width: 50%;
+}
+
+.userName {
+    font-size: 1.125rem;
+    font-weight: 400;
+}
+
+.editProfile {
+    text-decoration: none;
+    color: #000;
+    font-size: 0.75rem;
+}
+
+/*           ESPAÇOS           */
+
+.userSpaces {
+    margin-top: 25%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+}
+.userSpaces h2 {
+    font-size: 1.25rem;
+    font-weight: 700;
+}
+
+.userSpaces ul {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.5rem;
+    
+}
+.userSpaces ul a {
+    text-decoration: none;
+    color: #000;
+    font-size: 1.25rem; 
+}
+
+.userSpaces ul a:hover {
+    background-color: #0000001c;
+    border-radius: 50px;
+    padding: 10px 38px;
+}
+
+.userSpaces .selectedSpace {
+    background-color: #03030379;
+    border-radius: 50px;
+    padding: 10px 38px;
+    color: #fff;
+    font-weight: bold;
+}
+
+/*            ADD SPACE              */
+
+.addSpaceButton {
+    background: none;
+    border: none;
+    font-size: 1.25rem;
+    display: flex;
+    align-items: center;
+    gap: 0.375rem;
+    cursor: pointer;
+    padding: 10px 38px;
+}
+
+.addSpaceButton:hover {
+    background-color: #0000001c;
+    border-radius: 50px;
+    padding: 10px 38px;
+}
+/*          LOGOUT BUTTON            */
+
+.logoutButton {
+    text-decoration: none;
+    color: #000;
+    border: none;
+    padding: 0.375rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.625rem;
+    border-radius: 0.25rem;
+    font-size: 0.875rem;
+    cursor: pointer;
+    background-color: #fff;
+}
+.logoutButton:hover {
+    background-color: #dad8d8;
+}
+footer {
+    display: flex;
+    align-items: center;
+    justify-items: center;
+    gap: 1rem;
+    margin-top: auto;
+    margin-bottom: 5%;
+}
+
+
+.menu-hamburguer-content {
+    position: absolute;
+    background-color: black;
+}
+button.menuIcon {
+    background: none;
+    border: none;
+}
+
+.menu-open {
+    width: 4%;
+    background-color: #fff;
+    overflow: hidden;
+}
+
+.menu-open .closeIcon img {
+    width: 28px;
+    height: 28px;
+}
+
+
+.closeIcon {
+    align-self: flex-end;
+    background: none;
+    border: none;
+    cursor:pointer;
+}
+.closeIcon button{
+    width: 20px;
+    height: 20px;
+    background: none;
+}
+.closeIcon img {
+    width: 20px;
+    height: 20px;
+}
