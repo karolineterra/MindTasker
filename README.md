@@ -15,7 +15,7 @@ Este é o projeto de um sistema web para organização de tarefas e gerenciament
 npm start
 ```
 
-## Frontend
+## Rodar o frontend
 - Navegue até o diretório 'client':
 ```bash
 cd client
