@@ -1,55 +1,67 @@
-import React, { useState } from "react";
-import userImage from "../assets/userImage.png";
+import React, { useState, useEffect } from "react";
 import InformationComponent from "../components/InformationComponent";
+import userImage from "../assets/userImage.png";
 import { Link } from "react-router-dom";
+import axios from "axios";
 
 import "../styles/Settings.css";
 
 function Settings() {
-  const [image, setImage] = useState(userImage);
-  const fileInputRef = React.createRef();
+  const [userData, setUserData] = useState({});
+  const [editing, setEditing] = useState(false);
 
-  const handleImageUpload = (event) => {
-    setImage(URL.createObjectURL(event.target.files[0]));
-  };
+  useEffect(() => {
+    const token = localStorage.getItem("token");
 
-  const triggerFileInput = () => {
-    fileInputRef.current.click();
-  };
+    if (token) {
+      axios
+        .get("/api/user", {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        })
+        .then((response) => {
+          setUserData(response.data);
+        })
+        .catch((error) => {
+          console.error("Error fetching user data:", error);
+        });
+    }
+  }, []);
 
   return (
     <div className="profileInformation">
       <h1>Profile</h1>
       <div className="informationPanel">
-        <div
+      <div
           style={{
-            backgroundImage: `url(${image})`,
+            backgroundImage: `url(${userData.foto || userImage})`,
             backgroundRepeat: "no-repeat",
             backgroundSize: "cover",
           }}
-          class="profilePictureContainer"
+          className="profilePictureContainer"
         ></div>
+
         <div>
-          <InformationComponent label="Name" value="username" />
-          <InformationComponent label="Email" value="email@gmail.com" />
-          <InformationComponent label="Age" value="20 years" />
-          <InformationComponent label="Gender" value="Male" />
+          {userData && (
+            <>
+              <InformationComponent label="Name" value={userData.nome} />
+              <InformationComponent label="Email" value={userData.email} />
+              <InformationComponent
+                label="Birth"
+                value={new Date(userData.nascimento).toLocaleDateString()}
+              />
+              <InformationComponent label="Gender" value={userData.genero} />
+            </>
+          )}
         </div>
       </div>
       <div className="buttonsContainer">
-        <button className="editPictureSettings" onClick={triggerFileInput}>
-          Edit Picture
-        </button>
-        <input
-          type="file"
-          accept="image/*"
-          onChange={handleImageUpload}
-          style={{ display: "none" }}
-          ref={fileInputRef}
-        />
-        <Link className="editProfileSettings" to="/editsettings">
-          Edit Profile
-        </Link>
+        {!editing && (
+          <Link className="editProfileSettings" to="/editsettings">
+            Edit Profile
+          </Link>
+        )}
       </div>
     </div>
   );

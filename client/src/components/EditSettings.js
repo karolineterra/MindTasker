@@ -1,108 +1,176 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import axios from "axios";
 import userImage from "../assets/userImage.png";
-
 import "../styles/EditSettings.css";
 
 function EditSettings() {
-  //variaveis e funções da edição de imagem
-  const [image, setImage] = useState(userImage);
-  const fileInputRef = React.createRef();
-
-  const handleImageUpload = (event) => {
-    setImage(URL.createObjectURL(event.target.files[0]));
-  };
-
-  const triggerFileInput = () => {
-    fileInputRef.current.click();
-  };
-
-  //variáveis e funções do formulário
-  const [form, setForm] = useState({
-    name: "",
+  const [editedData, setEditedData] = useState({
+    nome: "",
     email: "",
-    age: "",
-    gender: "",
+    nascimento: "",
+    genero: "",
+    foto: null,
   });
+  const [imagePreview, setImagePreview] = useState(null);
+
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+
+    if (token) {
+      axios
+        .get("/api/user", {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        })
+        .then((response) => {
+          setEditedData(response.data);
+        })
+        .catch((error) => {
+          console.error("Error fetching user data:", error);
+        });
+    }
+  }, []);
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    const token = localStorage.getItem("token");
+
+    try {
+      const updateResponse = await axios.post(
+        "/api/updateProfile",
+        editedData,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
+          },
+        }
+      );
+
+      console.log(updateResponse.data.message);
+
+      if (updateResponse.data.message === "Profile updated successfully!") {
+        window.location.href = "/settings";
+      } else {
+        console.error("Error updating profile");
+      }
+    } catch (error) {
+      console.error("Error updating profile:", error);
+    }
+  };
 
   const handleChange = (e) => {
-    setForm({
-      ...form,
-      [e.target.name]: e.target.value,
-    });
+    const { name, value } = e.target;
+    setEditedData((prevData) => ({
+      ...prevData,
+      [name]: value,
+    }));
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    console.log(form);
+  const handleImageChange = (e) => {
+    const file = e.target.files[0];
+
+    if (file) {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setEditedData((prevData) => ({
+          ...prevData,
+          foto: reader.result,
+        }));
+        setImagePreview(reader.result);
+      };
+      reader.readAsDataURL(file);
+    } else {
+      setEditedData((prevData) => ({
+        ...prevData,
+        foto: null,
+      }));
+      setImagePreview(null);
+    }
+  };
+
+  const handleEditPicture = () => {
+    const fileInput = document.getElementById("fileInput");
+    if (fileInput) {
+      fileInput.click();
+    }
   };
 
   return (
-    <div className="profileInformationEditSettings">
-      <h1>Profile</h1>
-      <div className="profileInformationEditSettingsRow">
-        <div className="profileInformationEditLeftContainer">
+    <div className="editSettingsBody">
+      <h1>Edit Profile</h1>
+      <div className="informationPanel">
+        <div className="imageContainer">
+          <input
+            type="file"
+            id="fileInput"
+            accept="image/*"
+            style={{ display: "none" }}
+            onChange={(e) => handleImageChange(e)}
+          />
           <div
             style={{
-              backgroundImage: `url(${image})`,
+              backgroundImage: `url(${editedData.foto || userImage})`,
               backgroundRepeat: "no-repeat",
               backgroundSize: "cover",
             }}
-            class="profilePictureContainer"
+            className="profilePictureContainer"
           ></div>
-          <div className="buttonsContainer">
-            <button className="editPictureSettings" onClick={triggerFileInput}>
-              Edit Picture
-            </button>
+
+          <button className="editPictureSettings" onClick={handleEditPicture}>
+            Edit Picture
+          </button>
+        </div>
+
+        <form onSubmit={handleSubmit}>
+          <span className="editSettingsInputSpan">
+            <label htmlFor="name">Name</label>
             <input
-              type="file"
-              accept="image/*"
-              onChange={handleImageUpload}
-              style={{ display: "none" }}
-              ref={fileInputRef}
-            />
-          </div>
-        </div>
-        <div className="profileInformationEditRightContainer">
-          <form onSubmit={handleSubmit}>
-            <label>
-              Nome:
-              <input
-                type="text"
-                name="name"
-                value={form.name}
-                onChange={handleChange}
-              />
-            </label>
-            <label>
-              Email:
-              <input
-                type="email"
-                name="email"
-                value={form.email}
-                onChange={handleChange}
-              />
-            </label>
-            <label>
-              Idade:
-              <input
-                type="number"
-                name="age"
-                value={form.age}
-                onChange={handleChange}
-              />
-            </label>
-            <label>
-              Gênero:
-              <select name="gender" value={form.gender} onChange={handleChange}>
-                <option value="">Selecione...</option>
-                <option value="male">Masculino</option>
-                <option value="female">Feminino</option>
-                <option value="other">Outro</option>
-              </select>
-            </label>
-            <button className="editProfileSettings"type="submit">Save</button>
-          </form>
-        </div>
+              name="nome"
+              type="text"
+              placeholder="Enter your name"
+              value={editedData.nome}
+              onChange={handleChange}
+            ></input>
+          </span>
+          <span className="editSettingsInputSpan">
+            <label htmlFor="email">E-mail</label>
+            <input
+              name="email"
+              type="email"
+              placeholder="Enter your email"
+              value={editedData.email}
+              onChange={handleChange}
+            ></input>
+          </span>
+          <span className="editSettingsInputSpan">
+            <label htmlFor="nascimento">Birth</label>
+            <input
+              name="nascimento"
+              type="date"
+              value={editedData.nascimento}
+              onChange={handleChange}
+            ></input>
+          </span>
+          <span className="editSettingsInputSpan">
+            <label htmlFor="genero">Gender</label>
+            <select
+              name="genero"
+              value={editedData.genero}
+              onChange={handleChange}
+              className="editSettingsSelect"
+            >
+              <option value="Male">Male</option>
+              <option value="Female">Female</option>
+              <option value="Other">Other</option>
+            </select>
+          </span>
+          <span className="editSettingsSubmitSpan">
+            <input type="submit" value="Save Changes" />
+          </span>
+        </form>
       </div>
     </div>
   );

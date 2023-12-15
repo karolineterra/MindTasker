@@ -30,7 +30,9 @@
     margin-top: 10%;
 }
 .userImage {
-    width: 50%;
+    width: 6rem;
+    height: 6rem;
+    border-radius: 50%;
 }
 
 .userName {
@@ -63,19 +65,22 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 1.5rem;
+    gap: 1rem;
     
 }
-.userSpaces ul a {
-    text-decoration: none;
+.userSpaces ul li button {
+    background: none;
+    border: none;
     color: #000;
-    font-size: 1.25rem; 
+    font-size: 1rem; 
+    padding: 10px 38px;
 }
 
-.userSpaces ul a:hover {
+
+.userSpaces ul li button:hover {
     background-color: #0000001c;
     border-radius: 50px;
-    padding: 10px 38px;
+    /* padding: 10px 38px; */
 }
 
 .userSpaces .selectedSpace {
@@ -169,3 +174,123 @@ button.menuIcon {
     width: 20px;
     height: 20px;
 }
+
+.MusicModalContent {
+    background-color: var(--maincolor);
+    width: 30%;
+    height: 30%;
+    border-radius: 1.2rem;
+    display: flex;
+    flex-direction: column;
+    padding: 2rem; 
+    justify-content: space-evenly;
+    align-items: center;
+  }
+  .MusicModal {
+    height: 100vh;
+    width: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 2000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .musicbuttons{
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    justify-content: space-evenly;
+  }
+  .changeColor{
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    text-decoration: none;
+    color: #000;
+    font-size: 0.75rem;
+  }
+  .color-modal {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 20px;
+    background-color: #fff;
+    border: 1px solid var(--maincolor);
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    border-radius: 5px;
+  }
+  
+  .color-options {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-bottom: 20px;
+  }
+  
+  .color-options button {
+    width: 40px;
+    height: 40px;
+    margin: 5px;
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+  }
+  
+  .color-options button.selected {
+    outline: 2px solid #000;
+  }
+  
+  .color-modal button {
+    padding: 10px 20px;
+    background-color: var(--maincolor);
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .color-modal button:hover {
+    opacity: 0.8;
+  }
+  .userSpaces ul li button.deleteSpaceButton {
+    padding: 5px;
+    font-size: 10px;
+}
+.confirmation-modal {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #fff;
+    border: 1px solid var(--maincolor);
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    text-align: center;
+    z-index: 1000;
+    border-radius: 5px;
+  }
+  
+  .confirmation-modal p {
+    margin-bottom: 20px;
+  }
+  
+  .confirmation-modal button {
+    padding: 10px 20px;
+    background-color: var(--maincolor);
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin-right: 10px;
+  }
+  
+  .confirmation-modal button:hover {
+    opacity: 0.9;
+  }
